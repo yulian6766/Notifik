@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">NotifiKame</string>
+    <string name="bienvenido">Welcome</string>
+    <string name="mensaje">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+    <string name="cedula">Please type you login here</string>
+    <string name="Aceptar">Login</string>
+    <string name="salir">Exit</string>
+    <string name="logo_descripcion">NotifiKame</string>
+    <string name="headlines">headline</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_settings">Settings</string>
+    <string name="nombre">Name</string>
+    <string name="dni">Code</string>
+    <string name="tlf">User</string>
+    <string name="email">Password</string>
+    <string name="mostrar">Cancel</string>
+    <string name="insertar">Register</string>
+    <string-array name="Tags">
+        <item>Sus datos</item>
+        <item>Estado de solicitud</item>
+        <item>Noticias</item>
+        <item>Angular JS</item>
+        <item>Python</item>
+        <item>Ruby on Rails</item>
+    </string-array>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="hint_login">Type your Username here</string>
+    <string name="hint_pass">Type your Password Here</string>
+    <string name="chk_estudiante">Student</string>
+    <string name="chk_profesor">Profesor</string>
+    <string name="btn_registrarse">Register</string>
+</resources>
