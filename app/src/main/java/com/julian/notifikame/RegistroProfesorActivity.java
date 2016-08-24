@@ -74,40 +74,12 @@ public class RegistroProfesorActivity extends Activity {
         });
     }
 
-    //Inserta los datos de las Personas en el servidor.
-    private boolean insertar(){
-        HttpClient httpclient;
-        List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/registro_profesor.php"); // Url del Servidor
-        //Añadimos nuestros datos
-        nameValuePairs = new ArrayList<NameValuePair>(4);
-        nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("nom_profesor",nombre.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("user_profesor",usuario.getText().toString().trim()));
-        nameValuePairs.add(new BasicNameValuePair("pword_profesor",password.getText().toString().trim()));
 
-        try {
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (ClientProtocolException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return false;
-    }
-    //AsyncTask para insertar Personas
+    //AsyncTask para insertar Profesores
     class Insertar extends AsyncTask<String,String,String>{
 
         private Activity context;
+        private Conexion con = new Conexion();
 
         Insertar(Activity context){
             this.context=context;
@@ -115,7 +87,7 @@ public class RegistroProfesorActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            if(insertar())
+            if(con.insertarProfesor(cod,nombre,usuario,password))
                 context.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {

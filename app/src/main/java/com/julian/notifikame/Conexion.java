@@ -2,6 +2,7 @@ package com.julian.notifikame;
 
 import android.os.StrictMode;
 import android.util.Log;
+import android.widget.EditText;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -34,36 +35,21 @@ public class Conexion {
     private boolean resultado=false;
 
     protected boolean conexion(String login, String pass, int opcion){
-
-
-        if(opcion==2){
-
             //Metodo que realiza el query y se ejecuta en un Thread unido al UI
-            try {
-                StrictMode.ThreadPolicy policy =
-                        new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                resultado = conectDBLogin(login,pass,opcion);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }else{
-            //Metodo que realiza el query y se ejecuta en un Thread unido al UI
-            try {
-                StrictMode.ThreadPolicy policy =
-                        new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-                resultado = conectDBLogin(login,pass,opcion);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        try {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            resultado = conectDBLogin(login,pass,opcion);
+        }catch (Exception e) {
+            e.printStackTrace();
+            //Retorna si la consulta es efectiva
         }
-        //Retorna si la consulta es efectiva
         return resultado;
     }
 
     //Funcion que envia datos encapsulados por metodo POST
-    protected String conectComprobarLogin(String doc, String pass){
+    protected String conectComprobarLoginProfesor(String doc, String pass){
         HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
@@ -235,7 +221,7 @@ public class Conexion {
     //Descompone, crea un objeto con los datos descompuestos y lo almacena en nuestro ArrayList
     private boolean conectDBLogin(String login, String pass, int opcion){
         if(opcion==2){
-            if(!conectComprobarLogin(login, pass).equalsIgnoreCase("")){
+            if(!conectComprobarLoginProfesor(login, pass).equalsIgnoreCase("")){
                 return true;
             }
         }else{
@@ -244,6 +230,68 @@ public class Conexion {
             }
         }
 
+        return false;
+    }
+
+    //Inserta los datos de las Estudiante en el servidor.
+    protected boolean insertarEstudiante(EditText cod, EditText nombre, EditText usuario, EditText password){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/registro_estudiante.php"); // Url del Servidor
+        //Añadimos nuestros datos
+        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs.add(new BasicNameValuePair("cod_estudiante",cod.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("nom_estudiante",nombre.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("user_estudiante",usuario.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("pword_estudiante",password.getText().toString().trim()));
+
+        try {
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    //Inserta los datos de las Profesores en el servidor.
+    protected boolean insertarProfesor(EditText cod, EditText nombre, EditText usuario, EditText password){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/registro_profesor.php"); // Url del Servidor
+        //Añadimos nuestros datos
+        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("nom_profesor",nombre.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("user_profesor",usuario.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("pword_profesor",password.getText().toString().trim()));
+
+        try {
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return false;
     }
 }

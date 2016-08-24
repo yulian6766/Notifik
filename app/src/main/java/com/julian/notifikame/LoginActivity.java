@@ -24,6 +24,7 @@ public class LoginActivity extends Activity {
     private CheckBox chkEstudiante;
     private CheckBox chkProfesor;
     private Validaciones val;
+    private Conexion con;
     private String loginGuardado;
     private String passGuardado;
     private String tipoUsuario;
@@ -105,7 +106,7 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         if(chkEstudiante.isChecked()) {
-                            Conexion con = new Conexion();
+                            con = new Conexion();
 
                             String login = ediTxtLogin.getText().toString();
                             String pass = ediTxtPass.getText().toString();
@@ -140,7 +141,7 @@ public class LoginActivity extends Activity {
                                 toast.show();
                             }
                         }else{
-                            Conexion con = new Conexion();
+                            con = new Conexion();
 
                             String login = ediTxtLogin.getText().toString();
                             String pass = ediTxtPass.getText().toString();
