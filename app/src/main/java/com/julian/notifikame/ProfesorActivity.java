@@ -135,6 +135,7 @@ public class ProfesorActivity extends ActionBarActivity {
                 //Elimina el String del documento en el archivo de prefenrencias
                 editor.remove("login");
                 editor.remove("pass");
+                editor.remove("tipoUsuario");
                 editor.commit();
 
                 //Referencia a la nueva activity que se va a ejecutar y la ejecuta
