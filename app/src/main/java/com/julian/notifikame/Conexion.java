@@ -54,7 +54,7 @@ public class Conexion {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/login_profesor.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
 
@@ -63,9 +63,10 @@ public class Conexion {
         //String resultado="";
         //HttpResponse response;
 
-        nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair("login",doc.trim()));
         nameValuePairs.add(new BasicNameValuePair("pass",pass.trim()));
+        nameValuePairs.add(new BasicNameValuePair("accion","log_pro"));
 
         try {
             //Ejecutamos y obtenemos la respuestaa del servidor
@@ -93,7 +94,7 @@ public class Conexion {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/login_estudiante.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
 
@@ -102,9 +103,10 @@ public class Conexion {
         //String resultado="";
         //HttpResponse response;
 
-        nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair("login",doc.trim()));
         nameValuePairs.add(new BasicNameValuePair("pass",pass.trim()));
+        nameValuePairs.add(new BasicNameValuePair("accion","log_est"));
 
         try {
             //Ejecutamos y obtenemos la respuestaa del servidor
@@ -239,13 +241,14 @@ public class Conexion {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/registro_estudiante.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
         //Añadimos nuestros datos
-        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair("cod_estudiante",cod.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("nom_estudiante",nombre.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("user_estudiante",usuario.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("pword_estudiante",password.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("accion","reg_est"));
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -270,13 +273,14 @@ public class Conexion {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/registro_profesor.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
         //Añadimos nuestros datos
-        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("nom_profesor",nombre.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("user_profesor",usuario.getText().toString().trim()));
         nameValuePairs.add(new BasicNameValuePair("pword_profesor",password.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("accion","reg_pro"));
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
