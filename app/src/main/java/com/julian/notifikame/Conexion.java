@@ -57,6 +57,7 @@ public class Conexion {
         httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
+        HttpResponse response;
 
         //HttpClient httpclient = new DefaultHttpClient();
         //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
@@ -70,9 +71,14 @@ public class Conexion {
 
         try {
             //Ejecutamos y obtenemos la respuestaa del servidor
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
             request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request= convertStreamToString(instream);
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -97,6 +103,7 @@ public class Conexion {
         httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
+
 
         //HttpClient httpclient = new DefaultHttpClient();
         //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
@@ -156,6 +163,7 @@ public class Conexion {
             HttpEntity entity = response.getEntity();
             InputStream instream = entity.getContent();
             resultado= convertStreamToString(instream);
+            filtrarDatos(resultado);
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -172,17 +180,16 @@ public class Conexion {
     }
 
 
-    private boolean filtrarDatos(String login, String pass){
-        String data=conectComprobarDoc(login, pass);
-        if(!data.equalsIgnoreCase("[]")){
+    private boolean filtrarDatos(String datos){
+        Profesor pro = new Profesor();
+        if(!datos.equalsIgnoreCase("[]")){
             JSONObject json;
             try {
-                json = new JSONObject(data);
-                JSONArray jsonArray = json.optJSONArray("usuarios");
+                json = new JSONObject(datos);
+                JSONArray jsonArray = json.optJSONArray("datos");
                 for (int i = 0; i < jsonArray.length(); i++) {
-                    //Profesional pro =new Profesional();
                     JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
-                    //pro.setId(Integer.parseInt(jsonArrayChild.optString("id")));
+                    pro.setCodPro(jsonArrayChild.optString("id"));
                     //pro.setNombre(jsonArrayChild.optString("nombre"));
                     //pro.setApellido(jsonArrayChild.optString("apellido"));
                     //pro.setTelefono(Integer.parseInt(jsonArrayChild.optString("telefono")));
@@ -220,7 +227,6 @@ public class Conexion {
         }
     }
 
-    //Descompone, crea un objeto con los datos descompuestos y lo almacena en nuestro ArrayList
     private boolean conectDBLogin(String login, String pass, int opcion){
         if(opcion==2){
             if(!conectComprobarLoginProfesor(login, pass).equalsIgnoreCase("")){
