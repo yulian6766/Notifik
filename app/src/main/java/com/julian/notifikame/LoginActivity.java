@@ -204,6 +204,7 @@ public class LoginActivity extends Activity {
                     b.putString("pass", passGuardado);
                     b.putString("tipoUsuario", tipoUsuario);
                     b.putString("cod", codGuardado);
+                    DataSingleton.getInstance().setUserCode(codGuardado);
                     intent.putExtras(b);
                     startActivity(intent);
                     LoginActivity.this.finish();
@@ -214,6 +215,7 @@ public class LoginActivity extends Activity {
                     b.putString("pass", passGuardado);
                     b.putString("tipoUsuario", tipoUsuario);
                     b.putString("cod", codGuardado);
+                    DataSingleton.getInstance().setUserCode(codGuardado);
                     intent.putExtras(b);
                     startActivity(intent);
                     LoginActivity.this.finish();

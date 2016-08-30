@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /**
  * Created by Julian on 29/08/2016.
@@ -58,6 +59,28 @@ public class DBDataConverter {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected ArrayList<Grupo> filtrarDatosGrupos(String datos){
+        ArrayList<Grupo> grupos = new ArrayList<>();
+        if(!datos.equalsIgnoreCase("[]")){
+            JSONObject json;
+            try {
+                json = new JSONObject(datos);
+                JSONArray jsonArray = json.optJSONArray("grupos");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Grupo grupo =new Grupo();
+                    JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
+                    grupo.setCodGrupo(jsonArrayChild.optString("cod_grupo"));
+                    grupo.setNomGrupo(jsonArrayChild.optString("nom_grupo"));
+                    grupos.add(grupo);
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return grupos;
     }
 
     protected String convertStreamToString(InputStream is) throws IOException {

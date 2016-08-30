@@ -30,4 +30,6 @@
     <string name="chk_estudiante">Student</string>
     <string name="chk_profesor">Profesor</string>
     <string name="btn_registrarse">Register</string>
+    <string name="grupo">Group</string>
+    <string name="nombregrupo">Group Name</string>
 </resources>

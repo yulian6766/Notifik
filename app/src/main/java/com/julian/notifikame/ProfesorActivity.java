@@ -6,7 +6,9 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -154,10 +156,9 @@ public class ProfesorActivity extends ActionBarActivity {
 
     private void selectItem(int position) {
         // Reemplazar el contenido del layout principal por un fragmento
-        ProfesorFragment fragment = new ProfesorFragment();
-        Bundle args = new Bundle();
-        args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
-        fragment.setArguments(args);
+        GrupoListFragment fragment = new GrupoListFragment();
+        //Bundle args = new Bundle();
+        //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
