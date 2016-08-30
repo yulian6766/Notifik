@@ -15,4 +15,13 @@ public class Validaciones {
 
         return resultadoCampo;
     }
+
+    protected boolean validarNoNull(String text){
+        boolean resultadoCampo=false;
+        if (!(text.equalsIgnoreCase(""))){
+            resultadoCampo = true;
+        }
+
+        return resultadoCampo;
+    }
 }

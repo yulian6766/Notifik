@@ -155,14 +155,35 @@ public class ProfesorActivity extends ActionBarActivity {
     }
 
     private void selectItem(int position) {
-        // Reemplazar el contenido del layout principal por un fragmento
-        GrupoListFragment fragment = new GrupoListFragment();
-        //Bundle args = new Bundle();
-        //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
-
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 
+        switch (position) {
+
+            case 0:
+                // Reemplazar el contenido del layout principal por un fragmento
+                GrupoListFragment fragmentList = new GrupoListFragment();
+                //Bundle args = new Bundle();
+                //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
+
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentList).commit();
+                break;
+
+            case 1:
+                // Reemplazar el contenido del layout principal por un fragmento
+                CrearGrupoFragment fragmentCrearGrupo = new CrearGrupoFragment();
+                //Bundle args = new Bundle();
+                //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
+                //fragmentCrearGrupo.setArguments(args);
+
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentCrearGrupo).commit();
+
+                break;
+
+            default:
+
+                break;
+
+        }
         // Se actualiza el item seleccionado y el título, después de cerrar el drawer
         drawerList.setItemChecked(position, true);
         setTitle(tagTitles[position]);

@@ -219,13 +219,43 @@ public class Conexion {
         return false;
     }
 
+    //Inserta los datos de las Estudiante en el servidor.
+    protected boolean insertarGrupo(EditText cod, EditText nombre){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+        //Añadimos nuestros datos
+        nameValuePairs = new ArrayList<NameValuePair>(3);
+        nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("nom_grupo",nombre.getText().toString().trim()));
+        nameValuePairs.add(new BasicNameValuePair("accion","reg_grp"));
+
+        try {
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectLoadGrupos(String cod){
         HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/noti.php"); // Url del Servidor
 
         String request="";
 
