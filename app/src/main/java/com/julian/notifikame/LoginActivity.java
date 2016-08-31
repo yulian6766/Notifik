@@ -43,6 +43,8 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        startService(new Intent(this, ServicioDB.class));
+
         SharedPreferences prefs = getSharedPreferences("DatosGuardados", Context.MODE_PRIVATE);
         editor = prefs.edit();
         loginGuardado = prefs.getString("login", "");
