@@ -255,7 +255,7 @@ public class Conexion {
         List<NameValuePair> nameValuePairs;
         HttpPost httppost;
         httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/noti.php"); // Url del Servidor
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
 
@@ -267,6 +267,94 @@ public class Conexion {
         nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("cod",cod.trim()));
         nameValuePairs.add(new BasicNameValuePair("accion","load_grupos"));
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return request;
+    }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected String conectLoadEstudiantes(){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+
+        String request="";
+
+        //HttpClient httpclient = new DefaultHttpClient();
+        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
+        //String resultado="";
+        HttpResponse response;
+
+        nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("accion","load_est"));
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return request;
+    }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected String conectLoadGrupos(){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+
+        String request="";
+
+        //HttpClient httpclient = new DefaultHttpClient();
+        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
+        //String resultado="";
+        HttpResponse response;
+
+        nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("accion","load_grp"));
 
         try {
             //Ejecutamos y obtenemos la respuestaa del servidor

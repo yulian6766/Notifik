@@ -162,8 +162,6 @@ public class ProfesorActivity extends ActionBarActivity {
             case 0:
                 // Reemplazar el contenido del layout principal por un fragmento
                 GrupoListFragment fragmentList = new GrupoListFragment();
-                //Bundle args = new Bundle();
-                //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
 
                 fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentList).commit();
                 break;
@@ -171,11 +169,18 @@ public class ProfesorActivity extends ActionBarActivity {
             case 1:
                 // Reemplazar el contenido del layout principal por un fragmento
                 CrearGrupoFragment fragmentCrearGrupo = new CrearGrupoFragment();
-                //Bundle args = new Bundle();
-                //args.putInt(ProfesorFragment.ARG_ARTICLES_NUMBER, position);
-                //fragmentCrearGrupo.setArguments(args);
+
 
                 fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentCrearGrupo).commit();
+
+                break;
+
+            case 2:
+                // Reemplazar el contenido del layout principal por un fragmento
+                AddEstudianteFragment fragmentAddEstudiante = new AddEstudianteFragment();
+
+
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentAddEstudiante).commit();
 
                 break;
 

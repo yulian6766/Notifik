@@ -39,7 +39,7 @@ public class GrupoListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
-        Grupo pregunta = ((GrupoAdapter)getListAdapter()).getItem(position);
+        Grupo grupo = ((GrupoAdapter)getListAdapter()).getItem(position);
 
         //Intent i = new Intent(getActivity(), PreguntaActivity.class);
         //posicion del clic

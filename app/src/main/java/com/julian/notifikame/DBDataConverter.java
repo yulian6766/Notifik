@@ -48,10 +48,10 @@ public class DBDataConverter {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     Usuario user =new Usuario();
                     JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
-                    user.setCodigo(jsonArrayChild.optString("cod_profesor"));
-                    user.setNombre(jsonArrayChild.optString("nom_profesor"));
-                    user.setUsuario(jsonArrayChild.optString("user_profesor"));
-                    user.setPassword(jsonArrayChild.optString("pword_profesor"));
+                    user.setCodigo(jsonArrayChild.optString("cod_estudiante"));
+                    user.setNombre(jsonArrayChild.optString("nom_estudiante"));
+                    user.setUsuario(jsonArrayChild.optString("user_estudiante"));
+                    user.setPassword(jsonArrayChild.optString("pword_estudiante"));
                     DataSingleton.getInstance().setUser(user);
                 }
             } catch (JSONException e) {
@@ -59,6 +59,30 @@ public class DBDataConverter {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected ArrayList<Usuario> filtrarDatosEstudiantes(String datos){
+        ArrayList<Usuario> estudiantes = new ArrayList<>();
+        if(!datos.equalsIgnoreCase("[]")){
+            JSONObject json;
+            try {
+                json = new JSONObject(datos);
+                JSONArray jsonArray = json.optJSONArray("estudiante");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Usuario user =new Usuario();
+                    JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
+                    user.setCodigo(jsonArrayChild.optString("cod_estudiantes"));
+                    user.setNombre(jsonArrayChild.optString("nom_estudiante"));
+                    user.setUsuario(jsonArrayChild.optString("user_estudiante"));
+                    user.setPassword(jsonArrayChild.optString("pword_estudiante"));
+                    estudiantes.add(user);
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return estudiantes;
     }
 
     protected ArrayList<Grupo> filtrarDatosGrupos(String datos){
