@@ -52,15 +52,20 @@ public class RegistroProfesorActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // TODO Auto-generated method stub
-                if(!cod.getText().toString().trim().equalsIgnoreCase("")||
-                        !nombre.getText().toString().trim().equalsIgnoreCase("")||
-                        !usuario.getText().toString().trim().equalsIgnoreCase("")||
-                        !password.getText().toString().trim().equalsIgnoreCase(""))
+                if (!cod.getText().toString().trim().equalsIgnoreCase("") ||
+                        !nombre.getText().toString().trim().equalsIgnoreCase("") ||
+                        !usuario.getText().toString().trim().equalsIgnoreCase("") ||
+                        !password.getText().toString().trim().equalsIgnoreCase("")) {
 
                     new Insertar(RegistroProfesorActivity.this).execute();
 
-                else
+                    Intent intent = new Intent(RegistroProfesorActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    RegistroProfesorActivity.this.finish();
+
+                } else {
                     Toast.makeText(RegistroProfesorActivity.this, "Hay información por rellenar", Toast.LENGTH_LONG).show();
+                }
             }
 
         });
