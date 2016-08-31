@@ -45,8 +45,8 @@ public class ProfesorActivity extends ActionBarActivity {
         ArrayList<DrawerItem> items = new ArrayList<DrawerItem>();
         items.add(new DrawerItem(tagTitles[0], R.drawable.ic_html));
         items.add(new DrawerItem(tagTitles[1], R.drawable.ic_css));
-       /* items.add(new DrawerItem(tagTitles[2], R.drawable.ic_javascript));
-        items.add(new DrawerItem(tagTitles[3], R.drawable.ic_angular));
+        items.add(new DrawerItem(tagTitles[2], R.drawable.ic_javascript));
+        /*items.add(new DrawerItem(tagTitles[3], R.drawable.ic_angular));
         items.add(new DrawerItem(tagTitles[4], R.drawable.ic_python));
         items.add(new DrawerItem(tagTitles[5], R.drawable.ic_ruby));*/
 
