@@ -95,6 +95,24 @@ public class DataSingleton {
         return resultado;
     }
 
+    public String getCodEstudianteNombre(String nombre){
+        for(int i=0;i<arrayUsuarios.size();i++){
+            if(nombre.equalsIgnoreCase(arrayUsuarios.get(i).getNombre())){
+                return arrayUsuarios.get(i).getCodigo();
+            }
+        }
+        return "";
+    }
+
+    public String getCodGrupoNombre(String nombre){
+        for(int i=0;i<arrayGrupos.size();i++){
+            if(nombre.equalsIgnoreCase(arrayGrupos.get(i).getNomGrupo())){
+                return arrayGrupos.get(i).getCodGrupo();
+            }
+        }
+        return "";
+    }
+
     public ArrayList<Grupo> obtenerGrupos() {
         return arrayGruposProfesor;
     }

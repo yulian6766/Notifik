@@ -15,7 +15,7 @@ public class EstudianteListFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayAdapter<Estudiante> adapter = new EstudianteAdapter(getActivity(), getStudents());
+        ArrayAdapter<Usuario> adapter = new EstudianteAdapter(getActivity(), getStudents());
         setListAdapter(adapter);
     }
 
@@ -25,7 +25,7 @@ public class EstudianteListFragment extends ListFragment {
         //super.onListItemClick(l, v, position, id);
     }
 
-    public ArrayList<Estudiante> getStudents(){
+    public ArrayList<Usuario> getStudents(){
         return null;
         //Codigo que develve los estudiantes de la base de datos
 

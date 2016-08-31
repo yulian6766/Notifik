@@ -24,6 +24,8 @@ import java.util.List;
 /**
  * Created by Julian on 11/08/2016.
  */
+
+
 public class Conexion {
     private boolean resultado=false;
     private DBDataConverter converter = new DBDataConverter();
@@ -380,5 +382,46 @@ public class Conexion {
             e.printStackTrace();
         }
         return request;
+    }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected boolean conectInsertAsignacion(String cod_est, String cod_grp, String cod_pro){
+        HttpClient httpclient;
+        List<NameValuePair> nameValuePairs;
+        HttpPost httppost;
+        httpclient=new DefaultHttpClient();
+        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+
+        String request="";
+
+        //HttpClient httpclient = new DefaultHttpClient();
+        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
+        //String resultado="";
+        HttpResponse response;
+
+        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod_pro));
+        nameValuePairs.add(new BasicNameValuePair("cod_estudiante",cod_est));
+        nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod_grp));
+        nameValuePairs.add(new BasicNameValuePair("accion","insert_asig"));
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -23,6 +23,7 @@ public class AddEstudianteFragment extends Fragment {
     private Button btnAgregar;
     private Spinner spnGrupo;
     private Spinner spnEstudiante;
+    private Conexion con = new Conexion();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,24 @@ public class AddEstudianteFragment extends Fragment {
         btnAgregar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                try {
+                    StrictMode.ThreadPolicy policy =
+                            new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                    StrictMode.setThreadPolicy(policy);
+                    if(con.conectInsertAsignacion(DataSingleton.getInstance()
+                                                    .getCodEstudianteNombre(spnEstudiante.getSelectedItem().toString()),
+                                                DataSingleton.getInstance()
+                                                        .getCodGrupoNombre(spnGrupo.getSelectedItem().toString()),
+                                                DataSingleton.getInstance()
+                                                        .getUserCode())){
+                        Toast.makeText(v.getContext(), "Registro estudiante con éxito", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(v.getContext(), "No se pudo registrar el estudiante", Toast.LENGTH_LONG).show();
+                    }
+                }catch (Exception e) {
+                    e.printStackTrace();
+                    //Retorna si la consulta es efectiva
+                }
 
             }
         });

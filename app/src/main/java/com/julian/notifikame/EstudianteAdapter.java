@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class EstudianteAdapter extends ArrayAdapter {
     private Activity activity;
-    public EstudianteAdapter(Activity activity, ArrayList<Estudiante> students) {
+    public EstudianteAdapter(Activity activity, ArrayList<Usuario> students) {
         super(activity,0, students);
         this.activity = activity;
     }
@@ -23,7 +23,7 @@ public class EstudianteAdapter extends ArrayAdapter {
         if (convertView == null)
             convertView = activity.getLayoutInflater().inflate(R.layout.item_lista_estudiantes, null);
 
-        Estudiante estudiante = (Estudiante)getItem(position);
+        Usuario estudiante = (Usuario) getItem(position);
 
         ((TextView)convertView.findViewById(R.id.studentName)).setText(estudiante.getNombre());
 
