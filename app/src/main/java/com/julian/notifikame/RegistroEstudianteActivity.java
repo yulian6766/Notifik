@@ -54,12 +54,16 @@ public class RegistroEstudianteActivity extends Activity {
                 if(!cod.getText().toString().trim().equalsIgnoreCase("")||
                         !nombre.getText().toString().trim().equalsIgnoreCase("")||
                         !usuario.getText().toString().trim().equalsIgnoreCase("")||
-                        !password.getText().toString().trim().equalsIgnoreCase(""))
+                        !password.getText().toString().trim().equalsIgnoreCase("")) {
 
                     new Insertar(RegistroEstudianteActivity.this).execute();
+                    Intent intent = new Intent(RegistroEstudianteActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    RegistroEstudianteActivity.this.finish();
 
-                else
+                }else {
                     Toast.makeText(RegistroEstudianteActivity.this, "Hay información por rellenar", Toast.LENGTH_LONG).show();
+                }
             }
 
         });
