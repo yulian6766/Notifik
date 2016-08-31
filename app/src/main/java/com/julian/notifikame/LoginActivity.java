@@ -27,6 +27,7 @@ public class LoginActivity extends Activity {
     private Conexion con;
     private String loginGuardado;
     private String passGuardado;
+    private String codGuardado;
     private String tipoUsuario;
     private Button btnAceptar;
     private Button btnSalir;
@@ -42,10 +43,13 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        startService(new Intent(this, ServicioDB.class));
+
         SharedPreferences prefs = getSharedPreferences("DatosGuardados", Context.MODE_PRIVATE);
         editor = prefs.edit();
         loginGuardado = prefs.getString("login", "");
         passGuardado = prefs.getString("pass", "");
+        codGuardado = prefs.getString("cod", "");
         tipoUsuario = prefs.getString("tipoUsuario", "");
 
 
@@ -119,13 +123,16 @@ public class LoginActivity extends Activity {
 
                                     editor.putString("login", login);
                                     editor.putString("pass", pass);
-                                    editor.putString("tipoUsuario", "1");                               //1 si es estudiante 0 profesor
+                                    editor.putString("tipoUsuario", "1");                               //1 si es estudiante 2 profesor
+                                    editor.putString("cod", DataSingleton.getInstance().getUserCode());
                                     editor.commit();
 
                                     Intent intent = new Intent(LoginActivity.this, EstudianteActivity.class);
                                     Bundle b = new Bundle();
                                     b.putString("login", loginGuardado);
                                     b.putString("pass", passGuardado);
+                                    b.putString("tipoUsuario", tipoUsuario);
+                                    b.putString("cod", codGuardado);
                                     intent.putExtras(b);
                                     startActivity(intent);
                                     LoginActivity.this.finish();
@@ -154,13 +161,16 @@ public class LoginActivity extends Activity {
 
                                     editor.putString("login", login);
                                     editor.putString("pass", pass);
-                                    editor.putString("tipoUsuario", "0");
+                                    editor.putString("tipoUsuario", "2");
+                                    editor.putString("cod", DataSingleton.getInstance().getUserCode());
                                     editor.commit();
 
                                     Intent intent = new Intent(LoginActivity.this, ProfesorActivity.class);
                                     Bundle b = new Bundle();
                                     b.putString("login", loginGuardado);
                                     b.putString("pass", passGuardado);
+                                    b.putString("tipoUsuario", tipoUsuario);
+                                    b.putString("cod", codGuardado);
                                     intent.putExtras(b);
                                     startActivity(intent);
                                     LoginActivity.this.finish();
@@ -195,6 +205,8 @@ public class LoginActivity extends Activity {
                     b.putString("login", loginGuardado);
                     b.putString("pass", passGuardado);
                     b.putString("tipoUsuario", tipoUsuario);
+                    b.putString("cod", codGuardado);
+                    DataSingleton.getInstance().setUserCode(codGuardado);
                     intent.putExtras(b);
                     startActivity(intent);
                     LoginActivity.this.finish();
@@ -204,6 +216,8 @@ public class LoginActivity extends Activity {
                     b.putString("login", loginGuardado);
                     b.putString("pass", passGuardado);
                     b.putString("tipoUsuario", tipoUsuario);
+                    b.putString("cod", codGuardado);
+                    DataSingleton.getInstance().setUserCode(codGuardado);
                     intent.putExtras(b);
                     startActivity(intent);
                     LoginActivity.this.finish();
@@ -217,6 +231,7 @@ public class LoginActivity extends Activity {
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
 
     @Override
     public void onStart() {

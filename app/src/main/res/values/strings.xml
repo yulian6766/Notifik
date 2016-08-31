@@ -16,9 +16,9 @@
     <string name="mostrar">Cancel</string>
     <string name="insertar">Register</string>
     <string-array name="Tags">
-        <item>Sus datos</item>
-        <item>Estado de solicitud</item>
-        <item>Noticias</item>
+        <item>Groups</item>
+        <item>Create Group</item>
+        <item>Add Student to Group</item>
         <item>Angular JS</item>
         <item>Python</item>
         <item>Ruby on Rails</item>
@@ -30,4 +30,10 @@
     <string name="chk_estudiante">Student</string>
     <string name="chk_profesor">Profesor</string>
     <string name="btn_registrarse">Register</string>
+    <string name="grupo">Group</string>
+    <string name="nombregrupo">Group Name</string>
+    <string name="cod_grupo_fragment">Group code:</string>
+    <string name="nombre_grupo_fragment">Group name:</string>
+    <string name="add_group">Add group</string>
+    <string name="add_estudiante">Add student</string>
 </resources>
