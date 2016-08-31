@@ -6,9 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -47,10 +45,10 @@ public class ProfesorActivity extends ActionBarActivity {
         ArrayList<DrawerItem> items = new ArrayList<DrawerItem>();
         items.add(new DrawerItem(tagTitles[0], R.drawable.ic_html));
         items.add(new DrawerItem(tagTitles[1], R.drawable.ic_css));
-        items.add(new DrawerItem(tagTitles[2], R.drawable.ic_javascript));
+       /* items.add(new DrawerItem(tagTitles[2], R.drawable.ic_javascript));
         items.add(new DrawerItem(tagTitles[3], R.drawable.ic_angular));
         items.add(new DrawerItem(tagTitles[4], R.drawable.ic_python));
-        items.add(new DrawerItem(tagTitles[5], R.drawable.ic_ruby));
+        items.add(new DrawerItem(tagTitles[5], R.drawable.ic_ruby));*/
 
 
         // Relacionar el adaptador y la escucha de la lista del drawer

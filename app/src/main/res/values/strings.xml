@@ -15,13 +15,11 @@
     <string name="email">Password</string>
     <string name="mostrar">Cancel</string>
     <string name="insertar">Register</string>
+
     <string-array name="Tags">
         <item>Groups</item>
         <item>Create Group</item>
         <item>Add Student to Group</item>
-        <item>Angular JS</item>
-        <item>Python</item>
-        <item>Ruby on Rails</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
