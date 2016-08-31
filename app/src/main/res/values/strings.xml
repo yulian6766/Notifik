@@ -21,6 +21,13 @@
         <item>Create Group</item>
         <item>Add Student to Group</item>
     </string-array>
+
+    <string name="autorship_for_icons">
+        Iconos realizados\n
+        por http://www.freepik.com \n
+        de www.flaticon.com
+         </string>
+
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="hint_login">Type your Username here</string>

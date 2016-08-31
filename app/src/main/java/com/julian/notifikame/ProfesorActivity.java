@@ -28,10 +28,12 @@ public class ProfesorActivity extends ActionBarActivity {
     private CharSequence activityTitle;
     private CharSequence itemTitle;
     private String[] tagTitles;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        fragmentManager = getSupportFragmentManager();
         setContentView(R.layout.activity_profesor);
         itemTitle = activityTitle = getTitle();
         tagTitles = getResources().getStringArray(R.array.Tags);
@@ -43,9 +45,9 @@ public class ProfesorActivity extends ActionBarActivity {
 
         //Crear elementos de la lista
         ArrayList<DrawerItem> items = new ArrayList<DrawerItem>();
-        items.add(new DrawerItem(tagTitles[0], R.drawable.ic_html));
-        items.add(new DrawerItem(tagTitles[1], R.drawable.ic_css));
-        items.add(new DrawerItem(tagTitles[2], R.drawable.ic_javascript));
+        items.add(new DrawerItem(tagTitles[0], R.drawable.team));
+        items.add(new DrawerItem(tagTitles[1], R.drawable.add_group));
+        items.add(new DrawerItem(tagTitles[2], R.drawable.student));
         /*items.add(new DrawerItem(tagTitles[3], R.drawable.ic_angular));
         items.add(new DrawerItem(tagTitles[4], R.drawable.ic_python));
         items.add(new DrawerItem(tagTitles[5], R.drawable.ic_ruby));*/
@@ -128,7 +130,8 @@ public class ProfesorActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_settings:
-                //Log.i("ActionBar", "Nuevo!");
+                ConfiguracionFragment configFragment = new ConfiguracionFragment();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, configFragment).commit();
                 return true;
             case R.id.action_logout:
 
@@ -153,7 +156,7 @@ public class ProfesorActivity extends ActionBarActivity {
     }
 
     private void selectItem(int position) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        //FragmentManager fragmentManager = getSupportFragmentManager();
 
         switch (position) {
 
