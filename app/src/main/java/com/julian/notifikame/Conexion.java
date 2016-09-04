@@ -49,13 +49,13 @@ public class Conexion {
 
         if(opcion==2){
             data = conectComprobarLoginProfesor(login, pass);
-            if(!data.equalsIgnoreCase("")){
+            if(!data.equalsIgnoreCase("[]")){
                 converter.filtrarDatosProfesor(data);
                 return true;
             }
         }else{
             data = conectComprobarLoginEstudiante(login, pass);
-            if(!data.equalsIgnoreCase("")){
+            if(!data.equalsIgnoreCase("[]")){
                 converter.filtrarDatosEstudiante(data);
                 return true;
             }

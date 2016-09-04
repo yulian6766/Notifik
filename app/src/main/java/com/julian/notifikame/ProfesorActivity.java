@@ -120,8 +120,6 @@ public class ProfesorActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
 
         //Objetos para crear y leer preferencias y lo guarda en variable de tipo String
-        SharedPreferences prefs = getSharedPreferences("DatosGuardados", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
 
         if (drawerToggle.onOptionsItemSelected(item)) {
             // Toma los eventos de selección del toggle aquí
@@ -136,10 +134,7 @@ public class ProfesorActivity extends ActionBarActivity {
             case R.id.action_logout:
 
                 //Elimina el String del documento en el archivo de prefenrencias
-                editor.remove("login");
-                editor.remove("pass");
-                editor.remove("tipoUsuario");
-                editor.commit();
+                DataSingleton.getInstance().removePreferences();
 
                 //Referencia a la nueva activity que se va a ejecutar y la ejecuta
                 Intent intent = new Intent(ProfesorActivity.this, LoginActivity.class);

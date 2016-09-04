@@ -9,6 +9,15 @@ public class Usuario {
     private String usuario;
     private String password;
 
+    public Usuario(String cod,String name, String user, String pass){
+        this.codigo=cod;
+        this.nombre=name;
+        this.password=pass;
+        this.usuario=user;
+    }
+
+    public Usuario(){}
+
     public String getCodigo() {
         return codigo;
     }
