@@ -143,7 +143,7 @@ public class DataSingleton {
             e.printStackTrace();
             //Retorna si la consulta es efectiva
         }
-        if(!(data.equalsIgnoreCase(""))) {
+        if(!(data.equalsIgnoreCase("[]"))) {
             arrayGruposProfesor = dbConveter.filtrarDatosGrupos(data);
             resultado=true;
         }
