@@ -138,6 +138,8 @@ public class ProfesorActivity extends ActionBarActivity {
 
                 //Referencia a la nueva activity que se va a ejecutar y la ejecuta
                 Intent intent = new Intent(ProfesorActivity.this, LoginActivity.class);
+                DataSingleton.getInstance().dropGruposProfesor();
+
                 startActivity(intent);
 
                 //Cierra la actividad despues de cerrar sesion

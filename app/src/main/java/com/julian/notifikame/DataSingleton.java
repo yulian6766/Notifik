@@ -172,6 +172,8 @@ public class DataSingleton {
         return arrayGruposProfesor;
     }
 
+    public void dropGruposProfesor(){   arrayGruposProfesor=null;    }
+
     public static DataSingleton getInstance(){  return instance;    }
     public static void setIntances(DataSingleton instance){DataSingleton.instance = instance;}
 
