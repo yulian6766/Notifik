@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,20 +19,16 @@ import com.google.android.gms.common.api.GoogleApiClient;
 
 public class LoginActivity extends Activity {
 
-    private SharedPreferences.Editor editor;
     private EditText ediTxtLogin;
     private EditText ediTxtPass;
     private CheckBox chkEstudiante;
     private CheckBox chkProfesor;
-    private Validaciones val;
-    private Conexion con;
-    private String loginGuardado;
-    private String passGuardado;
-    private String codGuardado;
-    private String tipoUsuario;
     private Button btnAceptar;
     private Button btnSalir;
     private Button btnRegistro;
+
+    private Validaciones val = new Validaciones();;
+    private Conexion con  = new Conexion();;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -45,13 +42,8 @@ public class LoginActivity extends Activity {
 
         //startService(new Intent(this, ServicioDB.class));
 
-        SharedPreferences prefs = getSharedPreferences("DatosGuardados", Context.MODE_PRIVATE);
-        editor = prefs.edit();
-        loginGuardado = prefs.getString("login", "");
-        passGuardado = prefs.getString("pass", "");
-        codGuardado = prefs.getString("cod", "");
-        tipoUsuario = prefs.getString("tipoUsuario", "");
-
+        DataSingleton.getInstance().setDataContext(this.getApplicationContext());
+        DataSingleton.getInstance().loadPreferences();
 
         ediTxtLogin = (EditText) findViewById(R.id.lblLogin);
         ediTxtPass = (EditText) findViewById(R.id.lblPass);
@@ -60,8 +52,6 @@ public class LoginActivity extends Activity {
         btnRegistro = (Button) findViewById(R.id.btn_registro);
         chkEstudiante = (CheckBox) findViewById(R.id.chk_estudiante);
         chkProfesor = (CheckBox) findViewById(R.id.chk_profesor);
-
-        val = new Validaciones();
 
         chkEstudiante.setOnClickListener(new View.OnClickListener() {
 
@@ -104,36 +94,27 @@ public class LoginActivity extends Activity {
                 }
             }
         });
-            if (loginGuardado.equalsIgnoreCase("")) {
+            if (DataSingleton.getInstance().getPrefLog().equalsIgnoreCase("")&&
+                    DataSingleton.getInstance().getPrefCod().equalsIgnoreCase("")&&
+                    DataSingleton.getInstance().getPrefpass().equalsIgnoreCase("")&&
+                    DataSingleton.getInstance().getPrefTipo().equalsIgnoreCase("")) {
 
                 btnAceptar.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         if(chkEstudiante.isChecked()) {
-                            con = new Conexion();
 
-                            String login = ediTxtLogin.getText().toString();
-                            String pass = ediTxtPass.getText().toString();
+                            if (val.validarCampo(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim())) {
 
-                            if (val.validarCampo(login, pass)) {
+                                //1 Estudiante 2 Profesor
+                                if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 1)) {
 
-                                //boolean prueba=true;
-                                if (con.conexion(login, pass, 1)) {
-                                    //if (prueba==true) {
 
-                                    editor.putString("login", login);
-                                    editor.putString("pass", pass);
-                                    editor.putString("tipoUsuario", "1");                               //1 si es estudiante 2 profesor
-                                    editor.putString("cod", DataSingleton.getInstance().getUserCode());
-                                    editor.commit();
+                                    DataSingleton.getInstance().setPreferences(
+                                            ediTxtLogin.getText().toString(),
+                                            ediTxtPass.getText().toString(),"1");
 
                                     Intent intent = new Intent(LoginActivity.this, EstudianteActivity.class);
-                                    Bundle b = new Bundle();
-                                    b.putString("login", loginGuardado);
-                                    b.putString("pass", passGuardado);
-                                    b.putString("tipoUsuario", tipoUsuario);
-                                    b.putString("cod", codGuardado);
-                                    intent.putExtras(b);
                                     startActivity(intent);
                                     LoginActivity.this.finish();
 
@@ -148,30 +129,18 @@ public class LoginActivity extends Activity {
                                 toast.show();
                             }
                         }else{
-                            con = new Conexion();
 
-                            String login = ediTxtLogin.getText().toString();
-                            String pass = ediTxtPass.getText().toString();
+                            if (val.validarCampo(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim())) {
 
-                            if (val.validarCampo(login,pass)) {
+                                //1 Estudiante 2 Profesor
+                                if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 2)) {
 
-                                //boolean prueba=true;
-                                if (con.conexion(login, pass, 2)) {
-                                    //if (prueba==true) {
 
-                                    editor.putString("login", login);
-                                    editor.putString("pass", pass);
-                                    editor.putString("tipoUsuario", "2");
-                                    editor.putString("cod", DataSingleton.getInstance().getUserCode());
-                                    editor.commit();
+                                    DataSingleton.getInstance().setPreferences(
+                                            ediTxtLogin.getText().toString(),
+                                            ediTxtPass.getText().toString(),"2");
 
                                     Intent intent = new Intent(LoginActivity.this, ProfesorActivity.class);
-                                    Bundle b = new Bundle();
-                                    b.putString("login", loginGuardado);
-                                    b.putString("pass", passGuardado);
-                                    b.putString("tipoUsuario", tipoUsuario);
-                                    b.putString("cod", codGuardado);
-                                    intent.putExtras(b);
                                     startActivity(intent);
                                     LoginActivity.this.finish();
 
@@ -198,27 +167,15 @@ public class LoginActivity extends Activity {
                     }
                 });
             } else {
-                if(tipoUsuario.equalsIgnoreCase("1")) {
+                if(DataSingleton.getInstance().getPrefTipo().equalsIgnoreCase("1")) {
 
                     Intent intent = new Intent(LoginActivity.this, EstudianteActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("login", loginGuardado);
-                    b.putString("pass", passGuardado);
-                    b.putString("tipoUsuario", tipoUsuario);
-                    b.putString("cod", codGuardado);
-                    DataSingleton.getInstance().setUserCode(codGuardado);
-                    intent.putExtras(b);
+                    DataSingleton.getInstance().loadUser();
                     startActivity(intent);
                     LoginActivity.this.finish();
                 }else{
                     Intent intent = new Intent(LoginActivity.this, ProfesorActivity.class);
-                    Bundle b = new Bundle();
-                    b.putString("login", loginGuardado);
-                    b.putString("pass", passGuardado);
-                    b.putString("tipoUsuario", tipoUsuario);
-                    b.putString("cod", codGuardado);
-                    DataSingleton.getInstance().setUserCode(codGuardado);
-                    intent.putExtras(b);
+                    DataSingleton.getInstance().loadUser();
                     startActivity(intent);
                     LoginActivity.this.finish();
                 }

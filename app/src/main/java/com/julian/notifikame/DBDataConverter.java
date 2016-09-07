@@ -71,7 +71,7 @@ public class DBDataConverter {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     Usuario user =new Usuario();
                     JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
-                    user.setCodigo(jsonArrayChild.optString("cod_estudiantes"));
+                    user.setCodigo(jsonArrayChild.optString("cod_estudiante"));
                     user.setNombre(jsonArrayChild.optString("nom_estudiante"));
                     user.setUsuario(jsonArrayChild.optString("user_estudiante"));
                     user.setPassword(jsonArrayChild.optString("pword_estudiante"));

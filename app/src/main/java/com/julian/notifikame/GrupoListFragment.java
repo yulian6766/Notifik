@@ -31,6 +31,10 @@ public class GrupoListFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         DataSingleton.getInstance().loadGrupos();
         createGrupos();
+        if(grupos==null){
+            grupos = new ArrayList<Grupo>();
+            grupos.add(new Grupo());
+        }
         ArrayAdapter<Grupo> adapter = new GrupoAdapter(getActivity(), grupos);
         setListAdapter(adapter);
     }
