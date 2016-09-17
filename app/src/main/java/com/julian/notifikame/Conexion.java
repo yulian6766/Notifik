@@ -26,9 +26,9 @@ import java.util.List;
  */
 
 
-public class Conexion {
+public class Conexion implements Server {
     private boolean resultado=false;
-    private DBDataConverter converter = new DBDataConverter();
+
     private String data;
 
     protected boolean conexion(String login, String pass, int opcion){
@@ -49,13 +49,13 @@ public class Conexion {
 
         if(opcion==2){
             data = conectComprobarLoginProfesor(login, pass);
-            if(!data.equalsIgnoreCase("")){
+            if(!data.equalsIgnoreCase("[]")){
                 converter.filtrarDatosProfesor(data);
                 return true;
             }
         }else{
             data = conectComprobarLoginEstudiante(login, pass);
-            if(!data.equalsIgnoreCase("")){
+            if(!data.equalsIgnoreCase("[]")){
                 converter.filtrarDatosEstudiante(data);
                 return true;
             }
@@ -67,17 +67,9 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectComprobarLoginProfesor(String doc, String pass){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
 
         String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
         HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(3);
@@ -113,17 +105,8 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectComprobarLoginEstudiante(String doc, String pass){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
-
         String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
         HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(3);
@@ -159,11 +142,8 @@ public class Conexion {
 
     //Inserta los datos de las Estudiante en el servidor.
     protected boolean insertarEstudiante(EditText cod, EditText nombre, EditText usuario, EditText password){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
+
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair("cod_estudiante",cod.getText().toString().trim()));
@@ -191,11 +171,7 @@ public class Conexion {
 
     //Inserta los datos de las Profesores en el servidor.
     protected boolean insertarProfesor(EditText cod, EditText nombre, EditText usuario, EditText password){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod.getText().toString().trim()));
@@ -223,11 +199,7 @@ public class Conexion {
 
     //Inserta los datos de las Estudiante en el servidor.
     protected boolean insertarGrupo(EditText cod, EditText nombre){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod.getText().toString().trim()));
@@ -253,17 +225,8 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectLoadGrupos(String cod){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
-
         String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
         HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(2);
@@ -298,17 +261,8 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectLoadEstudiantes(){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
-
         String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
         HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -342,17 +296,8 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected String conectLoadGrupos(){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
-
         String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
         HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(1);
@@ -386,18 +331,7 @@ public class Conexion {
 
     //Funcion que envia datos encapsulados por metodo POST
     protected boolean conectInsertAsignacion(String cod_est, String cod_grp, String cod_pro){
-        HttpClient httpclient;
         List<NameValuePair> nameValuePairs;
-        HttpPost httppost;
-        httpclient=new DefaultHttpClient();
-        httppost= new HttpPost("http://notifk.gzpot.com/notifik/notifik.php"); // Url del Servidor
-
-        String request="";
-
-        //HttpClient httpclient = new DefaultHttpClient();
-        //HttpPost httppost = new HttpPost("http://aulavirtualcolpsic.com/disp_connect.php");
-        //String resultado="";
-        HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(4);
         nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod_pro));

@@ -6,10 +6,12 @@ package com.julian.notifikame;
 public class Validaciones {
 
     protected boolean validarCampo(String login, String pass){
-        boolean resultadoCampo;
-        if (!(login.equalsIgnoreCase("")&&pass.equalsIgnoreCase(""))){
-            resultadoCampo = true;
-        } else {
+        boolean resultadoCampo=true;
+        if (login.equalsIgnoreCase("")){
+
+            resultadoCampo = false;
+        }
+        if(pass.equalsIgnoreCase("")) {
             resultadoCampo = false;
         }
 
