@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class EstudianteActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
@@ -19,7 +22,14 @@ public class EstudianteActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante);
 
-        startService(new Intent(this, ServicioDB.class));
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                startService(new Intent(getApplicationContext(), ServicioDB.class));
+            }
+        }, 0, 15000);//put here time 1000 milliseconds=1 second
+
     }
 
     @Override

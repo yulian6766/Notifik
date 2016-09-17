@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,8 +36,7 @@ public class ServicioDB extends IntentService{
 
 
     @Override
-    protected void onHandleIntent(Intent intent) {
-
+    public void onStart(Intent intent, int startId) {
         try {
             StrictMode.ThreadPolicy policy =
                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -65,6 +65,12 @@ public class ServicioDB extends IntentService{
             }
 
         }
+    }
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+
+
 
 
 
