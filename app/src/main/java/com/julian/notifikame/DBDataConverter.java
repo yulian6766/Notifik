@@ -85,6 +85,30 @@ public class DBDataConverter {
         return estudiantes;
     }
 
+    protected ArrayList<Notificacion> filtrarDatosNotificacion(String datos){
+        ArrayList<Notificacion> notis = new ArrayList<>();
+        if(!datos.equalsIgnoreCase("[]")){
+            JSONObject json;
+            try {
+                json = new JSONObject(datos);
+                JSONArray jsonArray = json.optJSONArray("notificaciones");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    Notificacion noti =new Notificacion();
+                    JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
+                    noti.setId(jsonArrayChild.optInt("cod_notificacion"));
+                    noti.setGroup(jsonArrayChild.optString("cod_grupo"));
+                    noti.setHeader(jsonArrayChild.optString("header_notificacion"));
+                    noti.setDescription(jsonArrayChild.optString("descr_notificacion"));
+                    notis.add(noti);
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return notis;
+    }
+
     protected ArrayList<Grupo> filtrarDatosGrupos(String datos){
         ArrayList<Grupo> grupos = new ArrayList<>();
         if(!datos.equalsIgnoreCase("[]")){

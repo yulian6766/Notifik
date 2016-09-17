@@ -46,4 +46,7 @@
     <string name="add_group">Add group</string>
     <string name="add_estudiante">Add student</string>
     <string name="nombre_estudiante_fragment">Student</string>
+    <string name="descripcion_notificacion">Description:</string>
+    <string name="header_notificacion">Header:</string>
+    <string name="add_notificacion">Create Notification</string>
 </resources>

@@ -358,4 +358,70 @@ public class Conexion implements Server {
         }
         return false;
     }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected String conectLoadNoti(){
+        List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
+
+        nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs.add(new BasicNameValuePair("accion","buscar_noti"));
+
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return request;
+    }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected boolean conectInsertNotificacion(String cod_grp, String hdr_noti, String desc_noti){
+        List<NameValuePair> nameValuePairs;
+
+        nameValuePairs = new ArrayList<NameValuePair>(4);
+        nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod_grp));
+        nameValuePairs.add(new BasicNameValuePair("header_notificacion",hdr_noti));
+        nameValuePairs.add(new BasicNameValuePair("descr_notificacion",desc_noti));
+        nameValuePairs.add(new BasicNameValuePair("accion","insert_noti"));
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            httpclient.execute(httppost);
+            return true;
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

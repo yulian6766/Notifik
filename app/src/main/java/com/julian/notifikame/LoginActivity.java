@@ -40,8 +40,6 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //startService(new Intent(this, ServicioDB.class));
-
         DataSingleton.getInstance().setDataContext(this.getApplicationContext());
         DataSingleton.getInstance().loadPreferences();
 
@@ -119,13 +117,13 @@ public class LoginActivity extends Activity {
                                     LoginActivity.this.finish();
 
                                 } else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "El usuario digitado no existe", Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
                                     toast.show();
                                     ediTxtLogin.setText("");
                                     ediTxtPass.setText("");
                                 }
                             } else {
-                                Toast toast = Toast.makeText(getApplicationContext(), "El campo de login solo puede tener numeros y letras", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }else{
@@ -145,13 +143,13 @@ public class LoginActivity extends Activity {
                                     LoginActivity.this.finish();
 
                                 } else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "El usuario digitado no existe", Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
                                     toast.show();
                                     ediTxtLogin.setText("");
                                     ediTxtPass.setText("");
                                 }
                             } else {
-                                Toast toast = Toast.makeText(getApplicationContext(), "El campo de login solo puede tener numeros y letras", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }

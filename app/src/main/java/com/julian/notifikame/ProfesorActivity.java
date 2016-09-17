@@ -181,6 +181,14 @@ public class ProfesorActivity extends ActionBarActivity {
                 fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentAddEstudiante).commit();
 
                 break;
+            case 3:
+                // Reemplazar el contenido del layout principal por un fragmento
+                CrearNotificacionFragment fragmentAddNotificacion = new CrearNotificacionFragment();
+
+
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentAddNotificacion).commit();
+
+                break;
 
             default:
 
