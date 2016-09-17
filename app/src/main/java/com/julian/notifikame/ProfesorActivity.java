@@ -1,8 +1,6 @@
 package com.julian.notifikame;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -48,6 +46,8 @@ public class ProfesorActivity extends ActionBarActivity {
         items.add(new DrawerItem(tagTitles[0], R.drawable.team));
         items.add(new DrawerItem(tagTitles[1], R.drawable.add_group));
         items.add(new DrawerItem(tagTitles[2], R.drawable.student));
+        items.add(new DrawerItem(tagTitles[3], R.drawable.notification));
+
         /*items.add(new DrawerItem(tagTitles[3], R.drawable.ic_angular));
         items.add(new DrawerItem(tagTitles[4], R.drawable.ic_python));
         items.add(new DrawerItem(tagTitles[5], R.drawable.ic_ruby));*/
@@ -179,6 +179,14 @@ public class ProfesorActivity extends ActionBarActivity {
 
 
                 fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentAddEstudiante).commit();
+
+                break;
+            case 3:
+                // Reemplazar el contenido del layout principal por un fragmento
+                CrearNotificacionFragment fragmentAddNotificacion = new CrearNotificacionFragment();
+
+
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentAddNotificacion).commit();
 
                 break;
 

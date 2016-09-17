@@ -1,0 +1,10 @@
+SCRUM: Registro de Daily, weekly, retrospective
+
+notación UML para Diagrama de Despliegue
+
+
+Diagramas diseño servidor:
+e-R, clases, componentes.
+
+
+Instalación de herramientas

@@ -16,6 +16,8 @@ public class Notificacion {
         Description = description;
     }
 
+    public Notificacion(){}
+
     public int getId() {
         return id;
     }

@@ -20,11 +20,15 @@
         <item>Groups</item>
         <item>Create Group</item>
         <item>Add Student to Group</item>
+        <item>Create notification</item>
     </string-array>
 
     <string name="autorship_for_icons">
         Iconos realizados\n
         por http://www.freepik.com \n
+        de www.flaticon.com\n\n
+        Icono de notificación\n
+        por http://www.flaticon.com/authors/google
         de www.flaticon.com
          </string>
 
@@ -42,4 +46,7 @@
     <string name="add_group">Add group</string>
     <string name="add_estudiante">Add student</string>
     <string name="nombre_estudiante_fragment">Student</string>
+    <string name="descripcion_notificacion">Description:</string>
+    <string name="header_notificacion">Header:</string>
+    <string name="add_notificacion">Create Notification</string>
 </resources>

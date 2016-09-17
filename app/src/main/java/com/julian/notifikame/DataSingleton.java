@@ -50,7 +50,7 @@ public class DataSingleton {
         editor.putString("pass", pass);
         editor.putString("nombre",user.getNombre());
         editor.putString("tipoUsuario", tipo);                               //1 si es estudiante 2 profesor
-        editor.putString("cod", DataSingleton.getInstance().getUserCode());
+        editor.putString("cod", user.getCodigo());
         editor.commit();
     }
 

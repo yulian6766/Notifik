@@ -18,6 +18,8 @@ public class EstudianteActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante);
+
+        startService(new Intent(this, ServicioDB.class));
     }
 
     @Override
