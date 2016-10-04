@@ -6,11 +6,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.Spinner;
-
-import java.util.ArrayList;
 
 /**
  * Created by Julian on 01/10/2016.
@@ -29,7 +25,7 @@ public class BuscarEstudianteDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View dialogView = getActivity().getLayoutInflater()
-                .inflate(R.layout.buscar_estudiente_dialog, null);
+                .inflate(R.layout.buscar_estudiante_dialog, null);
 
         stundentCode=(EditText) dialogView.findViewById(R.id.txt_filtro_estudiante);
 

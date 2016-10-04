@@ -26,6 +26,7 @@ public class DataSingleton {
     private ArrayList<Usuario> arrayUsuarios;
     private ArrayList<Grupo> arrayGrupos;
     private ArrayList<String> arrayPrefs = new ArrayList<String>();
+    private ArrayList<Notificacion> arrayNotificaciones;
 
     private String data;
 
@@ -176,5 +177,13 @@ public class DataSingleton {
             }
         }
         return "";
+    }
+
+    public void setArrayNotificaciones(ArrayList<Notificacion> notis){
+        arrayNotificaciones=notis;
+    }
+
+    public ArrayList<Notificacion> getArrayNotificaciones(){
+        return arrayNotificaciones;
     }
 }
