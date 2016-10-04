@@ -150,14 +150,6 @@ public class DataSingleton {
         return resultado;
     }
 
-    public String getCodEstudianteNombre(String nombre){
-        for(int i=0;i<arrayUsuarios.size();i++){
-            if(nombre.equalsIgnoreCase(arrayUsuarios.get(i).getNombre())){
-                return arrayUsuarios.get(i).getCodigo();
-            }
-        }
-        return "";
-    }
 
     public String getCodGrupoNombre(String nombre){
         for(int i=0;i<arrayGrupos.size();i++){
@@ -177,4 +169,12 @@ public class DataSingleton {
     public static DataSingleton getInstance(){  return instance;    }
     public static void setIntances(DataSingleton instance){DataSingleton.instance = instance;}
 
+    public String searchCodEstudiante(String param) {
+        for(int i=0;i<arrayUsuarios.size();i++){
+            if(param.equalsIgnoreCase(arrayUsuarios.get(i).getCodigo())){
+                return arrayUsuarios.get(i).getCodigo();
+            }
+        }
+        return "";
+    }
 }
