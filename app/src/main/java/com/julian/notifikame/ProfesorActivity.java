@@ -22,11 +22,24 @@ public class ProfesorActivity extends ActionBarActivity {
     private DrawerLayout drawerLayout;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
-
+    private boolean isMain = false;
     private CharSequence activityTitle;
     private CharSequence itemTitle;
     private String[] tagTitles;
     private FragmentManager fragmentManager;
+
+    @Override
+    public void onBackPressed() {
+        GrupoListFragment fragmentList = new GrupoListFragment();
+        if(!isMain){
+            isMain=true;
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentList).commit();
+        }else{
+            this.finish();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            startActivity(intent);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,6 +171,7 @@ public class ProfesorActivity extends ActionBarActivity {
         switch (position) {
 
             case 0:
+                isMain=true;
                 // Reemplazar el contenido del layout principal por un fragmento
                 GrupoListFragment fragmentList = new GrupoListFragment();
 
@@ -165,15 +179,17 @@ public class ProfesorActivity extends ActionBarActivity {
                 break;
 
             case 1:
+                isMain=false;
                 // Reemplazar el contenido del layout principal por un fragmento
                 CrearGrupoFragment fragmentCrearGrupo = new CrearGrupoFragment();
 
 
-                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentCrearGrupo).commit();
+                fragmentManager.beginTransaction().replace(R.id.content_frame, fragmentCrearGrupo, "MainFragmentList").commit();
 
                 break;
 
             case 2:
+                isMain=false;
                 // Reemplazar el contenido del layout principal por un fragmento
                 AddEstudianteFragment fragmentAddEstudiante = new AddEstudianteFragment();
 
@@ -182,6 +198,7 @@ public class ProfesorActivity extends ActionBarActivity {
 
                 break;
             case 3:
+                isMain=false;
                 // Reemplazar el contenido del layout principal por un fragmento
                 CrearNotificacionFragment fragmentAddNotificacion = new CrearNotificacionFragment();
 
