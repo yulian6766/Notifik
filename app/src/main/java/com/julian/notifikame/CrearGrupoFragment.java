@@ -46,7 +46,7 @@ public class CrearGrupoFragment extends Fragment {
                             StrictMode.ThreadPolicy policy =
                                     new StrictMode.ThreadPolicy.Builder().permitAll().build();
                             StrictMode.setThreadPolicy(policy);
-                            if(con.insertarGrupo(txtCodigo,txtNombre)){
+                            if(con.insertarGrupo(txtCodigo,txtNombre)==""){
                                 Toast toast = Toast.makeText(v.getContext(), "Grupo registrado con exito", Toast.LENGTH_SHORT);
                                 toast.show();
                             }else{

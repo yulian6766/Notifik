@@ -91,12 +91,12 @@ public class RegistroEstudianteActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            if(con.insertarEstudiante(cod,nombre,usuario,password))
+            if(con.insertarEstudiante(cod,nombre,usuario,password)=="")
                 context.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Toast.makeText(context, "Estudiante insertada con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Estudiante registrado con éxito", Toast.LENGTH_LONG).show();
                         nombre.setText("");
                         cod.setText("");
                         usuario.setText("");
@@ -108,10 +108,17 @@ public class RegistroEstudianteActivity extends Activity {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Toast.makeText(context, "Estudiante no insertada con éxito", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Estudiante no registrado con éxito", Toast.LENGTH_LONG).show();
                     }
                 });
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegistroEstudianteActivity.this, LoginActivity.class);
+        startActivity(intent);
+        RegistroEstudianteActivity.this.finish();
     }
 }
