@@ -141,8 +141,10 @@ public class Conexion implements Server {
     }
 
     //Inserta los datos de las Estudiante en el servidor.
-    protected boolean insertarEstudiante(EditText cod, EditText nombre, EditText usuario, EditText password){
+    protected String insertarEstudiante(EditText cod, EditText nombre, EditText usuario, EditText password){
         List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
 
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(5);
@@ -154,8 +156,15 @@ public class Conexion implements Server {
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+            return request;
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -166,12 +175,15 @@ public class Conexion implements Server {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
+        return request;
     }
 
     //Inserta los datos de las Profesores en el servidor.
-    protected boolean insertarProfesor(EditText cod, EditText nombre, EditText usuario, EditText password){
+    protected String insertarProfesor(EditText cod, EditText nombre, EditText usuario, EditText password){
         List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
+
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(5);
         nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod.getText().toString().trim()));
@@ -182,8 +194,15 @@ public class Conexion implements Server {
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+            return request;
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -194,12 +213,15 @@ public class Conexion implements Server {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
+        return request;
     }
 
     //Inserta los datos de las Estudiante en el servidor.
-    protected boolean insertarGrupo(EditText cod, EditText nombre){
+    protected String insertarGrupo(EditText cod, EditText nombre){
         List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
+
         //Añadimos nuestros datos
         nameValuePairs = new ArrayList<NameValuePair>(3);
         nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod.getText().toString().trim()));
@@ -208,8 +230,15 @@ public class Conexion implements Server {
 
         try {
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+            return request;
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -220,7 +249,7 @@ public class Conexion implements Server {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        return false;
+        return request;
     }
 
     //Funcion que envia datos encapsulados por metodo POST
@@ -330,8 +359,10 @@ public class Conexion implements Server {
     }
 
     //Funcion que envia datos encapsulados por metodo POST
-    protected boolean conectInsertAsignacion(String cod_est, String cod_grp, String cod_pro){
+    protected String conectInsertAsignacion(String cod_est, String cod_grp, String cod_pro){
         List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
 
         nameValuePairs = new ArrayList<NameValuePair>(4);
         nameValuePairs.add(new BasicNameValuePair("cod_profesor",cod_pro));
@@ -342,8 +373,14 @@ public class Conexion implements Server {
         try {
             //Ejecutamos y obtenemos la respuestaa del servidor
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-            httpclient.execute(httppost);
-            return true;
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
         } catch (UnsupportedEncodingException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -356,7 +393,7 @@ public class Conexion implements Server {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return request;
     }
 
     //Funcion que envia datos encapsulados por metodo POST

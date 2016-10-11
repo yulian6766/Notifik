@@ -1,5 +1,6 @@
 package com.julian.notifikame;
 
+import android.app.Activity;
 import android.app.IntentService;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -7,6 +8,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.service.notification.NotificationListenerService;
 import android.util.Log;
@@ -38,15 +40,9 @@ public class ServicioDB extends IntentService{
 
     @Override
     public void onStart(Intent intent, int startId) {
-        try {
-            StrictMode.ThreadPolicy policy =
-                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-            data=con.conectLoadNoti();
-        }catch (Exception e) {
-            e.printStackTrace();
-            //Retorna si la consulta es efectiva
-        }
+
+            data=new ConsultarNoti().execute();
+
 
 
 
@@ -69,12 +65,31 @@ public class ServicioDB extends IntentService{
     }
 
     @Override
-    protected void onHandleIntent(Intent intent) {
+    protected void onHandleIntent(Intent intent) {    }
 
+    //AsyncTask para insertar Personas
+    class ConsultarNoti extends AsyncTask<String,String,String> {
 
+        private Activity context;
+        private Conexion con= new Conexion();
+        private String data;
 
+        ConsultarNoti(){
 
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            data=con.conectLoadNoti();
+            return data;
+        }
 
+        @Override
+        protected void onPostExecute(String datos) {
+            super.onPostExecute(datos);
+            //...
+
+        }
     }
 
     public void notificacion(int icon, CharSequence textoEstado, CharSequence titulo, CharSequence texto) {
