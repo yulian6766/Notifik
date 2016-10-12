@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class NotificacionListFragment extends ListFragment {
     private ArrayList<Notificacion> notificaciones;
+    private ArrayAdapter<Notificacion> adapter;
 
     @Override
     public void onResume() {
@@ -37,7 +38,7 @@ public class NotificacionListFragment extends ListFragment {
             notificaciones = new ArrayList<Notificacion>();
             notificaciones.add(new Notificacion());
         }
-        ArrayAdapter<Notificacion> adapter = new NotificacionAdapter(getActivity(), notificaciones);
+        adapter = new NotificacionAdapter(getActivity(), notificaciones);
         setListAdapter(adapter);
     }
 
@@ -58,4 +59,11 @@ public class NotificacionListFragment extends ListFragment {
         if (notificaciones == null)
             notificaciones = DataSingleton.getInstance().getArrayNotificaciones();
     }
+
+    protected void loadNotificaciones(){
+        if (notificaciones == null) {
+            notificaciones = DataSingleton.getInstance().getArrayNotificaciones();
+        }
+    }
+
 }

@@ -34,7 +34,7 @@ public class EstudianteActivity extends ActionBarActivity {
             public void run() {
                 startService(new Intent(getApplicationContext(), ServicioDB.class));
             }
-        }, 0, 15000);//put here time 1000 milliseconds=1 second
+        }, 0, 30000);//put here time 1000 milliseconds=1 second
 
         fragmentManager = getSupportFragmentManager();
 
