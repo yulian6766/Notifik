@@ -33,8 +33,8 @@ public class EstudianteActivity extends ActionBarActivity {
         setContentView(R.layout.activity_estudiante);
 
         //Lanzar Servicio
-
         startService(intent = new Intent(getApplicationContext(), ServicioDB.class));
+
 
 
         fragmentManager = getSupportFragmentManager();

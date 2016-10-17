@@ -55,6 +55,7 @@ public class ServicioDB extends IntentService implements AsyncResponse{
 
     @Override
     public void onStart(Intent intent, int startId) {
+        //startForeground(1,notif);
         Log.i(LOG_TAG,"Notifik Service Init");
         time.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -113,9 +114,11 @@ public class ServicioDB extends IntentService implements AsyncResponse{
     public void processFinish(String output) {
         //Here you will receive the result fired from async class
         //of onPostExecute(result) method.
-        data=output;
-        notisLoaded = dbConverter.filtrarDatosNotificacion(data);
-        DataSingleton.getInstance().compareArrayNotificaciones(notisLoaded);
+        if(output==null||output==""){}else {
+            data=output;
+            notisLoaded = dbConverter.filtrarDatosNotificacion(data);
+            DataSingleton.getInstance().compareArrayNotificaciones(notisLoaded);
+        }
     }
 
     //AsyncTask para insertar Personas
@@ -164,6 +167,25 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         //notif.flags = Notification.FLAG_ONGOING_EVENT;
     }
 
+    /*@Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
+        Log.i(LOG_TAG, "Service onStartCommand");
+
+        for (int i = 0; i < 3; i++)
+        {
+            long endTime = System.currentTimeMillis() + 10*1000;
+            while (System.currentTimeMillis() < endTime) {
+                synchronized (this) {
+                    try {
+                        wait(endTime - System.currentTimeMillis());
+                    } catch (Exception e) {
+                    }
+                }
+            }
+            Log.i(LOG_TAG, "Service running");
+        }
+        return ServicioDB.START_STICKY;
+    }*/
 
 }
