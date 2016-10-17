@@ -60,10 +60,19 @@ public class NotificacionListFragment extends ListFragment {
             notificaciones = DataSingleton.getInstance().getArrayNotificaciones();
     }
 
-    protected void loadNotificaciones(){
-        if (notificaciones == null) {
-            notificaciones = DataSingleton.getInstance().getArrayNotificaciones();
-        }
+    public void loadNotificaciones(ArrayList<Notificacion> notis){
+        notificaciones = new ArrayList<Notificacion>();
+        notificaciones.addAll(notis);
+        ArrayAdapter<Notificacion> adapter = new NotificacionAdapter(getActivity(), notificaciones);
+        setListAdapter(adapter);
+        ((NotificacionAdapter) getListAdapter()).notifyDataSetChanged();
+
+        /*jugadores = PreguntasSingleton.getInstance().getFiltro(param);
+        ArrayAdapter<Jugador> adapter = new JugadorAdapter(getActivity(), jugadores);
+        setListAdapter(adapter);
+        */
+
     }
+
 
 }

@@ -17,6 +17,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Julian on 30/08/2016.
@@ -30,8 +32,11 @@ public class ServicioDB extends IntentService implements AsyncResponse{
     private Conexion con=new Conexion();
     private String data;
     private ArrayList<Notificacion> notis = new ArrayList<>();
+    private ArrayList<Notificacion> notisLoaded = new ArrayList<>();
     private DBDataConverter dbConverter=new DBDataConverter();
-    private ConsultarNoti asyncTask =new ConsultarNoti();
+    private final String LOG_TAG = ServicioDB.class.getSimpleName();
+    private Timer time= new Timer();
+
 
     //Defino los iconos de la notificacion en la barra de notificacion
     int icono_v = R.drawable.konradlogo;
@@ -42,34 +47,61 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         super("Hola Mundo");
     }
 
+    @Override
+    public void onDestroy() {
+        stopSelf();
+        time.cancel();
+    }
 
     @Override
     public void onStart(Intent intent, int startId) {
+        Log.i(LOG_TAG,"Notifik Service Init");
+        time.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
 
-        //this to set delegate/listener back to this class
-        asyncTask.delegate=this;
-        //execute the async task
-         asyncTask.execute();
+                Log.i(LOG_TAG,"Notifik Service Query Thread Init");
+
+                ConsultarNoti asyncTask =new ConsultarNoti();
+                //this to set delegate/listener back to this class
+                asyncTask.delegate=ServicioDB.this;
+                //execute the async task
+                asyncTask.execute();
 
 
 
 
-        if(data==null){}
-        else {
-            if (!(data.equalsIgnoreCase(""))) {
-                for (int i = 0; i < notis.size(); i++) {
-                    // Inicio el servicio de notificaciones accediendo al servicio
-                    nm = (NotificationManager) getSystemService(ns);
-
-                    // Realizo una notificacion por medio de un metodo hecho por mi
-                    notificacion(icono_r, "NotifiK", notis.get(i).getHeader(), notis.get(i).getDescription());
-
-                    // Lanzo la notificacion creada en el paso anterior
-                    nm.notify(i + 1, notif);
+                if(data==null){
+                    Log.i(LOG_TAG,"Data null");
                 }
+                else {
+                    if (!(data.equalsIgnoreCase(""))) {
+                        if(notis.size()<notisLoaded.size()) {
+                            for (int i = notis.size(); i < notisLoaded.size(); i++) {
+                                // Inicio el servicio de notificaciones accediendo al servicio
+                                nm = (NotificationManager) getSystemService(ns);
 
+                                // Realizo una notificacion por medio de un metodo hecho por mi
+                                notificacion(icono_r, "NotifiK", notisLoaded.get(i).getHeader(), notisLoaded.get(i).getDescription());
+
+                                // Lanzo la notificacion creada en el paso anterior
+                                nm.notify(i + 1, notif);
+                                notis=notisLoaded;
+                            }
+                        }else{
+                            Log.i(LOG_TAG,"No notis to load");
+                        }
+
+                    }else{
+                        Log.i(LOG_TAG,"Data empty");
+                    }
+
+                }
             }
-        }
+        }, 0, 30000);//put here time 1000 milliseconds=1 second
+
+
+
     }
 
     @Override
@@ -82,13 +114,8 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         //Here you will receive the result fired from async class
         //of onPostExecute(result) method.
         data=output;
-        notis = dbConverter.filtrarDatosNotificacion(data);
-        DataSingleton.getInstance().setArrayNotificaciones(notis);
-        NotificacionListFragment nl=new NotificacionListFragment();
-        nl.loadNotificaciones();
-        nl.onPause();
-        nl.onResume();
-        asyncTask.cancel(true);
+        notisLoaded = dbConverter.filtrarDatosNotificacion(data);
+        DataSingleton.getInstance().compareArrayNotificaciones(notisLoaded);
     }
 
     //AsyncTask para insertar Personas
@@ -108,6 +135,7 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
             data=con.conectLoadNoti();
+            Log.i(LOG_TAG,"Data fetch");
             return data;
         }
 
@@ -135,6 +163,7 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         //Defino que la notificacion sea permamente
         //notif.flags = Notification.FLAG_ONGOING_EVENT;
     }
+
 
 
 }
