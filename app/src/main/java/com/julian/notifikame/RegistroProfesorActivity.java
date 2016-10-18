@@ -92,7 +92,7 @@ public class RegistroProfesorActivity extends Activity {
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            if(con.insertarProfesor(cod,nombre,usuario,password))
+            if(con.insertarProfesor(cod,nombre,usuario,password)=="")
                 context.runOnUiThread(new Runnable(){
                     @Override
                     public void run() {
@@ -114,5 +114,12 @@ public class RegistroProfesorActivity extends Activity {
                 });
             return null;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(RegistroProfesorActivity.this, LoginActivity.class);
+        startActivity(intent);
+        RegistroProfesorActivity.this.finish();
     }
 }
