@@ -48,6 +48,7 @@ public class ProfesorActivity extends ActionBarActivity {
         setContentView(R.layout.activity_profesor);
         itemTitle = activityTitle = getTitle();
         tagTitles = getResources().getStringArray(R.array.Tags);
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerList = (ListView) findViewById(R.id.left_drawer);
 
