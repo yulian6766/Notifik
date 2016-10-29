@@ -1,5 +1,6 @@
 package com.julian.notifikame;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.StrictMode;
@@ -17,6 +18,7 @@ public class DataSingleton {
     private SharedPreferences.Editor editor;
 
     private Context contexto;
+    private NotificacionListFragment listFragment = new NotificacionListFragment();
 
     private DBDataConverter dbConveter = new DBDataConverter();
     private Conexion con = new Conexion();
@@ -185,5 +187,17 @@ public class DataSingleton {
 
     public ArrayList<Notificacion> getArrayNotificaciones(){
         return arrayNotificaciones;
+    }
+
+    public void setListFragment(NotificacionListFragment nl){listFragment=nl; listFragment.setTargetFragment(listFragment,0);}
+
+    public void compareArrayNotificaciones (ArrayList<Notificacion> notis){
+        if(arrayNotificaciones==notis){
+
+        }else{
+            arrayNotificaciones=notis;
+            ((NotificacionListFragment)listFragment.getTargetFragment()).loadNotificaciones(arrayNotificaciones);
+        }
+
     }
 }

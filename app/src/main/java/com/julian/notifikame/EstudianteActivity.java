@@ -1,12 +1,11 @@
 package com.julian.notifikame;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,10 +17,35 @@ public class EstudianteActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
     private FragmentManager fragmentManager;
+    private Intent intent;
 
+    private final String LOG_TAG = EstudianteActivity.class.getSimpleName();
+
+    @Override
+    public void onBackPressed() {
+        this.finish();
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_estudiante);
+
+        //Lanzar Servicio
+        startService(intent = new Intent(getApplicationContext(), ServicioDB.class));
+
+
+
+        fragmentManager = getSupportFragmentManager();
+
+        NotificacionListFragment fragmentList = new NotificacionListFragment();
+        fragmentManager.beginTransaction().replace(R.id.estudiante_fragment_container, fragmentList).commit();
+        DataSingleton.getInstance().setListFragment(fragmentList);
+    }
+
+  /*  @Override
+    protected void onResume() {
         setContentView(R.layout.activity_estudiante);
 
         //Lanzar Servicio
@@ -36,8 +60,8 @@ public class EstudianteActivity extends ActionBarActivity {
 
         NotificacionListFragment fragmentList = new NotificacionListFragment();
         fragmentManager.beginTransaction().replace(R.id.estudiante_fragment_container, fragmentList).commit();
-
-    }
+        super.onResume();
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -60,6 +84,10 @@ public class EstudianteActivity extends ActionBarActivity {
                 //Log.i("ActionBar", "Nuevo!");
                 return true;
             case R.id.action_logout:
+
+                //Para el servicio
+                stopService(intent);
+                Log.i(LOG_TAG,"NotifiK service Stopped");
 
                 //Elimina el String del documento en el archivo de prefenrencias
                 DataSingleton.getInstance().removePreferences();

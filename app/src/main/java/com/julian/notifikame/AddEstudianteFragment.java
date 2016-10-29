@@ -75,7 +75,7 @@ public class AddEstudianteFragment extends Fragment {
                                                 DataSingleton.getInstance()
                                                         .getCodGrupoNombre(spnGrupo.getSelectedItem().toString()),
                                                 DataSingleton.getInstance()
-                                                        .getUserCode())){
+                                                        .getUserCode())==""){
                         Toast.makeText(v.getContext(), "Registro estudiante con éxito", Toast.LENGTH_LONG).show();
                     }else{
                         Toast.makeText(v.getContext(), "No se pudo registrar el estudiante", Toast.LENGTH_LONG).show();
