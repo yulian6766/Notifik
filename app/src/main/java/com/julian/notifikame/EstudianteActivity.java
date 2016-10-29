@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,19 +17,25 @@ import java.util.TimerTask;
 public class EstudianteActivity extends ActionBarActivity {
 
     private ActionBarDrawerToggle drawerToggle;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante);
 
-
+        //Lanzar Servicio
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 startService(new Intent(getApplicationContext(), ServicioDB.class));
             }
         }, 0, 15000);//put here time 1000 milliseconds=1 second
+
+        fragmentManager = getSupportFragmentManager();
+
+        NotificacionListFragment fragmentList = new NotificacionListFragment();
+        fragmentManager.beginTransaction().replace(R.id.estudiante_fragment_container, fragmentList).commit();
 
     }
 

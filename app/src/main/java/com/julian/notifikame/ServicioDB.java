@@ -8,6 +8,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.StrictMode;
+import android.service.notification.NotificationListenerService;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -52,7 +53,7 @@ public class ServicioDB extends IntentService{
 
         if(!(data.equalsIgnoreCase(""))) {
             notis = dbConverter.filtrarDatosNotificacion(data);
-
+            DataSingleton.getInstance().setArrayNotificaciones(notis);
             for (int i=0;i<notis.size();i++){
                 // Inicio el servicio de notificaciones accediendo al servicio
                 nm = (NotificationManager) getSystemService(ns);

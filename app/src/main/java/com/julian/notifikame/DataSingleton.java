@@ -26,6 +26,7 @@ public class DataSingleton {
     private ArrayList<Usuario> arrayUsuarios;
     private ArrayList<Grupo> arrayGrupos;
     private ArrayList<String> arrayPrefs = new ArrayList<String>();
+    private ArrayList<Notificacion> arrayNotificaciones;
 
     private String data;
 
@@ -150,14 +151,6 @@ public class DataSingleton {
         return resultado;
     }
 
-    public String getCodEstudianteNombre(String nombre){
-        for(int i=0;i<arrayUsuarios.size();i++){
-            if(nombre.equalsIgnoreCase(arrayUsuarios.get(i).getNombre())){
-                return arrayUsuarios.get(i).getCodigo();
-            }
-        }
-        return "";
-    }
 
     public String getCodGrupoNombre(String nombre){
         for(int i=0;i<arrayGrupos.size();i++){
@@ -177,4 +170,20 @@ public class DataSingleton {
     public static DataSingleton getInstance(){  return instance;    }
     public static void setIntances(DataSingleton instance){DataSingleton.instance = instance;}
 
+    public String searchCodEstudiante(String param) {
+        for(int i=0;i<arrayUsuarios.size();i++){
+            if(param.equalsIgnoreCase(arrayUsuarios.get(i).getCodigo())){
+                return arrayUsuarios.get(i).getCodigo();
+            }
+        }
+        return "";
+    }
+
+    public void setArrayNotificaciones(ArrayList<Notificacion> notis){
+        arrayNotificaciones=notis;
+    }
+
+    public ArrayList<Notificacion> getArrayNotificaciones(){
+        return arrayNotificaciones;
+    }
 }

@@ -45,8 +45,11 @@
     <string name="nombre_grupo_fragment">Group name:</string>
     <string name="add_group">Add group</string>
     <string name="add_estudiante">Add student</string>
-    <string name="nombre_estudiante_fragment">Student</string>
+    <string name="nombre_estudiante_fragment">Student Code</string>
     <string name="descripcion_notificacion">Description:</string>
     <string name="header_notificacion">Header:</string>
     <string name="add_notificacion">Create Notification</string>
+    <string name="student_name">Code</string>
+    <string name="code_student">Type the stundent code:</string>
+    <string name="buscar_student">Find Stundent</string>
 </resources>
