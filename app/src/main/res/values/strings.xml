@@ -52,4 +52,5 @@
     <string name="student_name">Code</string>
     <string name="code_student">Type the stundent code:</string>
     <string name="buscar_student">Find Stundent</string>
+    <string name="cantidad_estudiantes">number_students</string>
 </resources>

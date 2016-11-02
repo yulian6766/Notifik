@@ -131,6 +131,28 @@ public class DBDataConverter {
         return grupos;
     }
 
+    protected ArrayList<NumeroEstudiantes> filtrarNumeroEstudiantes(String datos){
+        ArrayList<NumeroEstudiantes> numeroEstudiantes = new ArrayList<NumeroEstudiantes>();
+        if(!datos.equalsIgnoreCase("[]")){
+            JSONObject json;
+            try {
+                json = new JSONObject(datos);
+                JSONArray jsonArray = json.optJSONArray("numeroEstudiantes");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    NumeroEstudiantes ne =new NumeroEstudiantes();
+                    JSONObject jsonArrayChild = jsonArray.getJSONObject(i);
+                    ne.setNumero(jsonArrayChild.optString("COUNT( grupo.nom_grupo )"));
+                    ne.setNombreGrupo(jsonArrayChild.optString("nom_grupo"));
+                    numeroEstudiantes.add(ne);
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return numeroEstudiantes;
+    }
+
     protected String convertStreamToString(InputStream is) throws IOException {
         //Log.d("paso1","paso1");
         if (is != null) {

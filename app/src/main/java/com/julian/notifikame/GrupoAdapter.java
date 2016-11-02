@@ -30,6 +30,8 @@ public class GrupoAdapter extends ArrayAdapter<Grupo> {
                 .setText("Grupo: "+(position+1));
         ((TextView)convertView.findViewById(R.id.lblnombregrupo))
                 .setText(grupo.getNomGrupo());
+        ((TextView)convertView.findViewById(R.id.lblgruponumeroestudiante))
+                .setText(DataSingleton.getInstance().cargarNumeroEstudiantes(grupo.getNomGrupo()));
 
 
         return convertView;

@@ -34,4 +34,14 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:text="@string/cantidad_estudiantes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblgruponumeroestudiante"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp" />
+
 </LinearLayout>

@@ -461,4 +461,41 @@ public class Conexion implements Server {
         }
         return false;
     }
+
+    //Funcion que envia datos encapsulados por metodo POST
+    protected String conectLoadNumberStudents(String cod_grp){
+        List<NameValuePair> nameValuePairs;
+        String request="";
+        HttpResponse response;
+
+        nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("cod_grupo",cod_grp));
+        nameValuePairs.add(new BasicNameValuePair("accion","numero_est"));
+
+
+        try {
+            //Ejecutamos y obtenemos la respuestaa del servidor
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            request = httpclient.execute(httppost, responseHandler);
+
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            HttpEntity entity = response.getEntity();
+            InputStream instream = entity.getContent();
+            request = converter.convertStreamToString(instream);
+        } catch (UnsupportedEncodingException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ClientProtocolException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return request;
+    }
 }
