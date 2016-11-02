@@ -432,13 +432,14 @@ public class Conexion implements Server {
     }
 
     //Funcion que envia datos encapsulados por metodo POST
-    protected String conectLoadNoti(){
+    protected String conectLoadNoti(String codigoEstudiante){
         List<NameValuePair> nameValuePairs;
         String request="";
         HttpResponse response;
 
-        nameValuePairs = new ArrayList<NameValuePair>(1);
+        nameValuePairs = new ArrayList<NameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("accion","buscar_noti"));
+        nameValuePairs.add(new BasicNameValuePair("cod_est",codigoEstudiante.trim()));
 
 
         try {
