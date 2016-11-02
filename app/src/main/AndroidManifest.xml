@@ -28,8 +28,11 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".EstudianteActivity"></activity>
-        <service android:name=".ServicioDB"/>
+        <activity android:name=".EstudianteActivity" />
+
+        <service android:name=".ServicioDB" />
+
+        <activity android:name=".GrupoEstudiantesActivity"></activity>
     </application>
 
 </manifest>

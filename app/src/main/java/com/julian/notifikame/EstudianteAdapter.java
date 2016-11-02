@@ -26,6 +26,7 @@ public class EstudianteAdapter extends ArrayAdapter {
         Usuario estudiante = (Usuario) getItem(position);
 
         ((TextView)convertView.findViewById(R.id.studentName)).setText(estudiante.getNombre());
+        ((TextView)convertView.findViewById(R.id.studentID)).setText(estudiante.getCodigo());
 
         return convertView;
     }

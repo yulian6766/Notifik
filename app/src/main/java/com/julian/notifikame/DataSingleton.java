@@ -30,6 +30,7 @@ public class DataSingleton {
     private ArrayList<String> arrayPrefs = new ArrayList<String>();
     private ArrayList<Notificacion> arrayNotificaciones;
     private ArrayList<NumeroEstudiantes> arrayNumeroEstudiantesGrupo;
+    private ArrayList<Usuario> arrayEstudiantesGrupo;
 
     private String data;
 
@@ -167,6 +168,24 @@ public class DataSingleton {
         return resultado;
     }
 
+    public boolean loadEstudiantesGrupo(String codGrupo){
+        boolean resultado=false;
+        try {
+            StrictMode.ThreadPolicy policy =
+                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+            data = con.conectLoadGruposEstudiantes(codGrupo);
+        }catch (Exception e) {
+            e.printStackTrace();
+            //Retorna si la consulta es efectiva
+        }
+        if(!(data.equalsIgnoreCase("[]"))) {
+            arrayEstudiantesGrupo = dbConveter.filtrarDatosEstudiantes(data);
+            resultado=true;
+        }
+        return resultado;
+    }
+
     public String cargarNumeroEstudiantes(String nombreGrupo){
         String numero="";
         for (int i=0; i<arrayNumeroEstudiantesGrupo.size(); i++){
@@ -189,6 +208,10 @@ public class DataSingleton {
 
     public ArrayList<Grupo> obtenerGrupos() {
         return arrayGruposProfesor;
+    }
+
+    public ArrayList<Usuario> obtenerGEstudiantes() {
+        return arrayEstudiantesGrupo;
     }
 
     public void dropGruposProfesor(){   arrayGruposProfesor=null;    }

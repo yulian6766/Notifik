@@ -1,5 +1,6 @@
 package com.julian.notifikame;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -45,10 +46,10 @@ public class GrupoListFragment extends ListFragment {
 
         Grupo grupo = ((GrupoAdapter)getListAdapter()).getItem(position);
 
-        //Intent i = new Intent(getActivity(), PreguntaActivity.class);
+        Intent i = new Intent(getActivity(), GrupoEstudiantesActivity.class);
         //posicion del clic
-       // i.putExtra("PreguntaIndex", position);
-        //startActivity(i);
+        DataSingleton.getInstance().loadEstudiantesGrupo(grupo.getCodGrupo());
+        startActivity(i);
 
     }
 

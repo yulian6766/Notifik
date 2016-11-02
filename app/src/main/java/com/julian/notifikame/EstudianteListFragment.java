@@ -12,22 +12,47 @@ import java.util.ArrayList;
  * Created by JdRod on 8/26/2016.
  */
 public class EstudianteListFragment extends ListFragment {
+    private ArrayList<Usuario> estudiantes;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        ArrayAdapter<Usuario> adapter = new EstudianteAdapter(getActivity(), estudiantes);
+        setListAdapter(adapter);
+
+        setHasOptionsMenu(true);
+        ((EstudianteAdapter)getListAdapter()).notifyDataSetChanged();
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ArrayAdapter<Usuario> adapter = new EstudianteAdapter(getActivity(), getStudents());
+        //DataSingleton.getInstance().loadEstudiantesGrupo();
+        createGrupos();
+        if(estudiantes==null){
+            estudiantes = new ArrayList<Usuario>();
+            estudiantes.add(new Usuario());
+        }
+        ArrayAdapter<Grupo> adapter = new EstudianteAdapter(getActivity(), estudiantes);
         setListAdapter(adapter);
     }
 
-    @Override
+    /*@Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        //Metodo que permitira crear el Dialog para poder borrar al estudiante
-        //super.onListItemClick(l, v, position, id);
-    }
+        super.onListItemClick(l, v, position, id);
 
-    public ArrayList<Usuario> getStudents(){
-        return null;
-        //Codigo que develve los estudiantes de la base de datos
+        Grupo grupo = ((GrupoAdapter)getListAdapter()).getItem(position);
 
+        Intent i = new Intent(getActivity(), GrupoEstudiantesActivity.class);
+        //posicion del clic
+        i.putExtra("PreguntaIndex", position);
+        startActivity(i);
+
+    }*/
+
+    private void createGrupos(){
+        if (estudiantes == null)
+            estudiantes = DataSingleton.getInstance().obtenerGEstudiantes();
     }
 }
