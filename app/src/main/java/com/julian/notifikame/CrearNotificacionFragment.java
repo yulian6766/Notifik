@@ -21,8 +21,10 @@ public class CrearNotificacionFragment extends Fragment {
     private EditText txtGrupo;
     private EditText txtHeader;
     private EditText txtDescripcion;
+
     private Validaciones val=new Validaciones();
     private Conexion con=new Conexion();
+    private CheckInternet checkInet= new CheckInternet();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,22 +48,27 @@ public class CrearNotificacionFragment extends Fragment {
                 if (val.validarNoNull(txtGrupo.getText().toString().trim())&&
                         val.validarNoNull(txtHeader.getText().toString().trim())&&
                         val.validarNoNull(txtDescripcion.getText().toString().trim())) {
-                    try {
-                        StrictMode.ThreadPolicy policy =
-                                new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                        StrictMode.setThreadPolicy(policy);
-                        if(con.conectInsertNotificacion(txtGrupo.getText().toString().trim(),
-                                txtHeader.getText().toString().trim(),
-                                txtDescripcion.getText().toString().trim())){
-                            Toast toast = Toast.makeText(v.getContext(), "Notificacion creada con exito", Toast.LENGTH_SHORT);
-                            toast.show();
-                        }else{
-                            Toast toast = Toast.makeText(v.getContext(), "No se crear la notificacion", Toast.LENGTH_SHORT);
-                            toast.show();
+                    if(checkInet.isOnlineNet()) {
+                        try {
+                            StrictMode.ThreadPolicy policy =
+                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                            StrictMode.setThreadPolicy(policy);
+                            if (con.conectInsertNotificacion(txtGrupo.getText().toString().trim(),
+                                    txtHeader.getText().toString().trim(),
+                                    txtDescripcion.getText().toString().trim())) {
+                                Toast toast = Toast.makeText(v.getContext(), "Notificacion creada con exito", Toast.LENGTH_SHORT);
+                                toast.show();
+                            } else {
+                                Toast toast = Toast.makeText(v.getContext(), "No se crear la notificacion", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            //Retorna si la consulta es efectiva
                         }
-                    }catch (Exception e) {
-                        e.printStackTrace();
-                        //Retorna si la consulta es efectiva
+                    }else{
+                        Toast toast = Toast.makeText(v.getContext(), "Error de conexion, comprueba tu internet", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 } else {
                     Toast toast = Toast.makeText(v.getContext(), "Los campos no pueden ser vacios", Toast.LENGTH_SHORT);

@@ -33,6 +33,8 @@ public class RegistroEstudianteActivity extends Activity {
     private Button registrarse;
     private Button cancelar;
 
+    private CheckInternet checkInet= new CheckInternet();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,10 +58,15 @@ public class RegistroEstudianteActivity extends Activity {
                         !usuario.getText().toString().trim().equalsIgnoreCase("")||
                         !password.getText().toString().trim().equalsIgnoreCase("")) {
 
-                    new Insertar(RegistroEstudianteActivity.this).execute();
-                    Intent intent = new Intent(RegistroEstudianteActivity.this, LoginActivity.class);
-                    startActivity(intent);
-                    RegistroEstudianteActivity.this.finish();
+                    if(checkInet.isOnlineNet()) {
+                        new Insertar(RegistroEstudianteActivity.this).execute();
+                        Intent intent = new Intent(RegistroEstudianteActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        RegistroEstudianteActivity.this.finish();
+                    }else{
+                        Toast toast = Toast.makeText(getApplicationContext(), "Error de conexion, comprueba tu internet", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
                 }else {
                     Toast.makeText(RegistroEstudianteActivity.this, "Hay información por rellenar", Toast.LENGTH_LONG).show();

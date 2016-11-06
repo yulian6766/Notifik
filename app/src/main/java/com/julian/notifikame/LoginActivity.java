@@ -28,7 +28,8 @@ public class LoginActivity extends Activity {
     private Button btnRegistro;
 
     private Validaciones val = new Validaciones();;
-    private Conexion con  = new Conexion();;
+    private Conexion con  = new Conexion();
+    private CheckInternet checkInet= new CheckInternet();
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -104,23 +105,28 @@ public class LoginActivity extends Activity {
 
                             if (val.validarCampo(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim())) {
 
-                                //1 Estudiante 2 Profesor
-                                if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 1)) {
+                                if(checkInet.isOnlineNet()) {
+                                    //1 Estudiante 2 Profesor
+                                    if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 1)) {
 
 
-                                    DataSingleton.getInstance().setPreferences(
-                                            ediTxtLogin.getText().toString(),
-                                            ediTxtPass.getText().toString(),"1");
+                                        DataSingleton.getInstance().setPreferences(
+                                                ediTxtLogin.getText().toString(),
+                                                ediTxtPass.getText().toString(), "1");
 
-                                    Intent intent = new Intent(LoginActivity.this, EstudianteActivity.class);
-                                    startActivity(intent);
-                                    LoginActivity.this.finish();
+                                        Intent intent = new Intent(LoginActivity.this, EstudianteActivity.class);
+                                        startActivity(intent);
+                                        LoginActivity.this.finish();
 
-                                } else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
+                                    } else {
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        ediTxtLogin.setText("");
+                                        ediTxtPass.setText("");
+                                    }
+                                }else{
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Error de conexion, comprueba tu internet", Toast.LENGTH_SHORT);
                                     toast.show();
-                                    ediTxtLogin.setText("");
-                                    ediTxtPass.setText("");
                                 }
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
@@ -130,23 +136,28 @@ public class LoginActivity extends Activity {
 
                             if (val.validarCampo(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim())) {
 
-                                //1 Estudiante 2 Profesor
-                                if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 2)) {
+                                if(checkInet.isOnlineNet()) {
+                                    //1 Estudiante 2 Profesor
+                                    if (con.conexion(ediTxtLogin.getText().toString().trim(), ediTxtPass.getText().toString().trim(), 2)) {
 
 
-                                    DataSingleton.getInstance().setPreferences(
-                                            ediTxtLogin.getText().toString(),
-                                            ediTxtPass.getText().toString(),"2");
+                                        DataSingleton.getInstance().setPreferences(
+                                                ediTxtLogin.getText().toString(),
+                                                ediTxtPass.getText().toString(), "2");
 
-                                    Intent intent = new Intent(LoginActivity.this, ProfesorActivity.class);
-                                    startActivity(intent);
-                                    LoginActivity.this.finish();
+                                        Intent intent = new Intent(LoginActivity.this, ProfesorActivity.class);
+                                        startActivity(intent);
+                                        LoginActivity.this.finish();
 
-                                } else {
-                                    Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
+                                    } else {
+                                        Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        ediTxtLogin.setText("");
+                                        ediTxtPass.setText("");
+                                    }
+                                }else{
+                                    Toast toast = Toast.makeText(getApplicationContext(), "Error de conexion, comprueba tu internet", Toast.LENGTH_SHORT);
                                     toast.show();
-                                    ediTxtLogin.setText("");
-                                    ediTxtPass.setText("");
                                 }
                             } else {
                                 Toast toast = Toast.makeText(getApplicationContext(), "Los campos de login no son correctos", Toast.LENGTH_SHORT);

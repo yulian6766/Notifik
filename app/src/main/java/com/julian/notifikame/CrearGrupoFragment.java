@@ -19,8 +19,10 @@ public class CrearGrupoFragment extends Fragment {
     private Button btnAgregar;
     private EditText txtCodigo;
     private EditText txtNombre;
+
     private Validaciones val=new Validaciones();
     private Conexion con=new Conexion();
+    private CheckInternet checkInet= new CheckInternet();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,20 +43,25 @@ public class CrearGrupoFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if (val.validarNoNull(txtCodigo.getText().toString())&&val.validarNoNull(txtNombre.getText().toString())) {
-                        try {
-                            StrictMode.ThreadPolicy policy =
-                                    new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                            StrictMode.setThreadPolicy(policy);
-                            if(con.insertarGrupo(txtCodigo,txtNombre)==""){
-                                Toast toast = Toast.makeText(v.getContext(), "Grupo registrado con exito", Toast.LENGTH_SHORT);
-                                toast.show();
-                            }else{
-                                Toast toast = Toast.makeText(v.getContext(), "No se pudo registrar el grupo", Toast.LENGTH_SHORT);
-                                toast.show();
+                        if(checkInet.isOnlineNet()) {
+                            try {
+                                StrictMode.ThreadPolicy policy =
+                                        new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                                StrictMode.setThreadPolicy(policy);
+                                if (con.insertarGrupo(txtCodigo, txtNombre) == "") {
+                                    Toast toast = Toast.makeText(v.getContext(), "Grupo registrado con exito", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                } else {
+                                    Toast toast = Toast.makeText(v.getContext(), "No se pudo registrar el grupo", Toast.LENGTH_SHORT);
+                                    toast.show();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                //Retorna si la consulta es efectiva
                             }
-                        }catch (Exception e) {
-                            e.printStackTrace();
-                            //Retorna si la consulta es efectiva
+                        }else{
+                            Toast toast = Toast.makeText(v.getContext(), "Error de conexion, comprueba tu internet", Toast.LENGTH_SHORT);
+                            toast.show();
                         }
                     } else {
                         Toast toast = Toast.makeText(v.getContext(), "Los campos no pueden ser vacios", Toast.LENGTH_SHORT);
