@@ -22,6 +22,18 @@ public class EstudianteActivity extends ActionBarActivity {
     private final String LOG_TAG = EstudianteActivity.class.getSimpleName();
 
     @Override
+    public void onStart() {
+        super.onStart();
+        ServicioDB.setActiveActivity(true);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ServicioDB.setActiveActivity(false);
+    }
+
+    @Override
     public void onBackPressed() {
         this.finish();
         Intent intent = new Intent(Intent.ACTION_MAIN);

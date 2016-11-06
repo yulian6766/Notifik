@@ -31,20 +31,25 @@ public class ServicioDB extends IntentService implements AsyncResponse{
     Notification notif;
     private Conexion con=new Conexion();
     private String data;
+
+    static boolean activeActivity=false;
     private ArrayList<Notificacion> notis = new ArrayList<>();
     private ArrayList<Notificacion> notisLoaded = new ArrayList<>();
     private DBDataConverter dbConverter=new DBDataConverter();
     private final String LOG_TAG = ServicioDB.class.getSimpleName();
     private Timer time= new Timer();
 
-
     //Defino los iconos de la notificacion en la barra de notificacion
     int icono_v = R.drawable.konradlogo;
     int icono_r = R.drawable.konradlogo;
 
+    public static void setActiveActivity(boolean activeActivity) {
+        ServicioDB.activeActivity = activeActivity;
+    }
+
     @TargetApi(Build.VERSION_CODES.CUPCAKE)
     public ServicioDB() {
-        super("Hola Mundo");
+        super("Noti Services");
     }
 
     @Override
@@ -54,6 +59,53 @@ public class ServicioDB extends IntentService implements AsyncResponse{
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i(LOG_TAG,"Notifik Service Init");
+        time.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                Log.i(LOG_TAG,"Notifik Service Query Thread Init");
+
+                ConsultarNoti asyncTask =new ConsultarNoti();
+                //this to set delegate/listener back to this class
+                asyncTask.delegate=ServicioDB.this;
+                //execute the async task
+                asyncTask.execute();
+
+                if(data==null){
+                    Log.i(LOG_TAG,"Data null");
+                }
+                else {
+                    if (!(data.equalsIgnoreCase(""))) {
+                        if(notis.size()<notisLoaded.size()) {
+                            for (int i = notis.size(); i < notisLoaded.size(); i++) {
+                                // Inicio el servicio de notificaciones accediendo al servicio
+                                nm = (NotificationManager) getSystemService(ns);
+
+                                // Realizo una notificacion por medio de un metodo hecho por mi
+                                notificacion(icono_r, "NotifiK", notisLoaded.get(i).getHeader(), notisLoaded.get(i).getDescription());
+
+                                // Lanzo la notificacion creada en el paso anterior
+                                nm.notify(i + 1, notif);
+                                notis=notisLoaded;
+                            }
+                        }else{
+                            Log.i(LOG_TAG,"No notis to load");
+                        }
+
+                    }else{
+                        Log.i(LOG_TAG,"Data empty");
+                    }
+
+                }
+            }
+        }, 0, 30000);//put here time 1000 milliseconds=1 second
+
+        return START_STICKY;
+    }
+
+   /* @Override
     public void onStart(Intent intent, int startId) {
         //startForeground(1,notif);
         Log.i(LOG_TAG,"Notifik Service Init");
@@ -103,7 +155,7 @@ public class ServicioDB extends IntentService implements AsyncResponse{
 
 
 
-    }
+    }*/
 
     @Override
     protected void onHandleIntent(Intent intent) {    }
@@ -117,7 +169,9 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         if(output==null||output==""){}else {
             data=output;
             notisLoaded = dbConverter.filtrarDatosNotificacion(data);
-            DataSingleton.getInstance().compareArrayNotificaciones(notisLoaded);
+            if(activeActivity){
+                DataSingleton.getInstance().compareArrayNotificaciones(notisLoaded);
+            }
         }
     }
 
@@ -137,8 +191,7 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            data=con.conectLoadNoti(
-                    DataSingleton.getInstance().getPrefCod());
+            data=con.conectLoadNoti(DataSingleton.getInstance().getPrefCod());
             Log.i(LOG_TAG,"Data fetch");
             return data;
         }

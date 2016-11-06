@@ -18,15 +18,14 @@
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cod_grupo_fragment"
+            android:text="@string/nombre_grupo_fragment"
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-        <EditText
-            android:layout_margin="20dp"
-            android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/crear_notificacion_spinner"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_cod_grupo_notificacion_fragment"
-            />
+            android:layout_margin="20dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +34,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_header_notificacion"/>
@@ -47,7 +46,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"/>
 
         <EditText
-            android:layout_margin="20dp"
+            android:layout_margin="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/txt_descripcion_notificacion"/>
