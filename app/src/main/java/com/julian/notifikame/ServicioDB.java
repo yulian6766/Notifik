@@ -137,7 +137,8 @@ public class ServicioDB extends IntentService implements AsyncResponse{
         @Override
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
-            data=con.conectLoadNoti(DataSingleton.getInstance().getPrefCod());
+            data=con.conectLoadNoti(
+                    DataSingleton.getInstance().getPrefCod());
             Log.i(LOG_TAG,"Data fetch");
             return data;
         }

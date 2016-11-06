@@ -70,9 +70,14 @@ public class DataSingleton {
         arrayPrefs.trimToSize();
     }
 
+    public void clearArrayPrefs(){
+        arrayPrefs.clear();
+        arrayPrefs.trimToSize();
+    }
+
     public String getPrefLog(){  return arrayPrefs.get(0);   }
     public String getPrefpass(){  return arrayPrefs.get(1); }
-    public String getPrefCod(){  return arrayPrefs.get(2);   }
+    public String getPrefCod(){ return arrayPrefs.get(2);   }
     public String getPrefTipo(){  return arrayPrefs.get(3);   }
     public String getPrefNombre(){  return arrayPrefs.get(4);   }
 

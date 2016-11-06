@@ -32,6 +32,9 @@ public class EstudianteActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estudiante);
 
+        DataSingleton.getInstance().clearArrayPrefs();
+        DataSingleton.getInstance().loadPreferences();
+
         //Lanzar Servicio
         startService(intent = new Intent(getApplicationContext(), ServicioDB.class));
 
